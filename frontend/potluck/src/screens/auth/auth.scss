@@ -1,0 +1,16 @@
+.auth {
+  width: 100%;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-height: 200px;
+    min-width: 400px;
+  }
+
+  &__input {
+    font-size: 19px;
+    width: 95%;
+  }
+}

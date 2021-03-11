@@ -1,0 +1,188 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  getUserByIdentity(id: ID!): User @aws_cognito_user_pools
+
+  getBusinessesWithOptions(
+    region: String!
+    csc: String! #country_state_city
+    filter: BusinessFilterInput
+    limit: Int
+    nextToken: String
+  ): BusinessConnection @aws_cognito_user_pools @aws_api_key
+
+  getFeaturedBusinesses(
+    filter: BusinessFilterInput
+    limit: Int
+    nextToken: String
+  ): BusinessConnection @aws_cognito_user_pools @aws_api_key
+
+  getBusinessByLocationAndSlug(csc: String!, slug: String!): BusinessConnection
+    @aws_cognito_user_pools
+    @aws_api_key
+
+  getBusinessBySlug(slug: String!): BusinessConnection
+    @aws_cognito_user_pools
+    @aws_api_key
+}
+
+type Mutation {
+  createUser(input: UserInput!): User @aws_iam
+  updateUserSettings(input: SettingsInput!): User @aws_cognito_user_pools
+  createBusiness(input: CreateBusinessInput!): Business
+    @aws_iam
+    @aws_cognito_user_pools
+    @aws_auth(cognito_groups: ["Admin"])
+  updateBusiness(input: EditBusinessInput!): Business
+    @aws_iam
+    @aws_cognito_user_pools
+    @aws_auth(cognito_groups: ["Admin, Business"])
+  sendEmail(input: SendEmailInput!): Boolean @aws_cognito_user_pools
+}
+
+input SendEmailInput {
+  firstName: String!
+  lastName: String!
+  address: String!
+  city: String!
+  zip: String!
+  phone: String!
+  businessEmail: String!
+  merch: [String!]!
+  gifts: [String!]!
+  paymentMethod: String!
+  preferredStrain: String!
+  quantity: String!
+}
+
+type User @aws_cognito_user_pools {
+  id: ID!
+  settings: UserSettings
+}
+
+input UserInput {
+  id: ID!
+  settings: SettingsInput
+}
+
+type UserSettings @aws_cognito_user_pools {
+  darkMode: Boolean
+  favorites: [Business]
+}
+
+input SettingsInput {
+  darkMode: Boolean
+  favorites: [String]
+}
+
+enum State {
+  nj
+}
+
+type MenuItem @aws_cognito_user_pools @aws_iam @aws_api_key {
+  title: String
+  items: [String]
+}
+
+input MenuItemInput @aws_cognito_user_pools @aws_iam {
+  title: String
+  items: [String]
+}
+
+type Business @aws_cognito_user_pools @aws_iam @aws_api_key {
+  id: ID!
+  region: State!
+  slug: String!
+  title: String!
+  email: String!
+  description: String
+  avatar: String
+  menu: [MenuItem]
+}
+
+type BusinessConnection @aws_iam @aws_cognito_user_pools @aws_api_key {
+  items: [Business]
+  nextToken: String
+}
+
+input BusinessFilterInput {
+  tags: [TableStringFilterInput]
+  industry: TableStringFilterInput
+}
+
+input CreateBusinessInput {
+  region: State!
+  slug: String!
+  title: String!
+  email: String!
+  description: String
+  avatar: String
+  menu: [MenuItemInput]
+}
+
+input EditBusinessInput {
+  id: ID
+  description: String
+  avatar: String
+  menu: [MenuItemInput]
+}
+
+####### boilerplate #######
+
+input TableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input TableFloatFilterInput {
+  between: [Float]
+  contains: Float
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+  notContains: Float
+}
+
+input TableIDFilterInput {
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+}
+
+input TableIntFilterInput {
+  between: [Int]
+  contains: Int
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+  notContains: Int
+}
+
+input TableStringFilterInput {
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+}

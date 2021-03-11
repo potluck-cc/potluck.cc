@@ -1,0 +1,29 @@
+.profile {
+  width: 50%;
+
+  &__topbar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__blurbs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__blurb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      margin-left: 24px;
+    }
+  }
+
+  &__description {
+    padding: 16px;
+    text-align: center;
+  }
+}

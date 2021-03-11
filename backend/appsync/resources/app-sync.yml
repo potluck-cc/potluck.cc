@@ -1,0 +1,79 @@
+name: PotluckAppsync-${self:custom.env}
+authenticationType: AMAZON_COGNITO_USER_POOLS
+userPoolConfig:
+  awsRegion: ${self:custom.region}
+  defaultAction: ALLOW
+  userPoolId: ${self:custom.userPoolId}
+additionalAuthenticationProviders:
+  - authenticationType: AWS_IAM
+  - authenticationType: API_KEY
+dataSources:
+  - type: AMAZON_DYNAMODB
+    name: BusinessTable
+    config:
+      tableName: PotluckBusinessTable-${self:custom.env}
+  - type: AMAZON_DYNAMODB
+    name: UserTable
+    config:
+      tableName: PotluckUserTable-${self:custom.env}
+  - type: AWS_LAMBDA
+    name: SendEmailLambda
+    config:
+      lambdaFunctionArn: arn:aws:lambda:us-east-1:185477522948:function:SendEmail-Dev
+mappingTemplates:
+  #### queries
+  - dataSource: BusinessTable
+    type: Query
+    field: getBusinessesWithOptions
+    request: query/get-businesses-with-options/request.vtl
+    response: common/generic-response.vtl
+  - dataSource: BusinessTable
+    type: Query
+    field: getBusinessByLocationAndSlug
+    request: query/get-business-by-location-slug/request.vtl
+    response: common/generic-response.vtl
+  - dataSource: BusinessTable
+    type: Query
+    field: getFeaturedBusinesses
+    request: common/common-list-request.vtl
+    response: common/generic-response.vtl
+  - dataSource: BusinessTable
+    type: Query
+    field: getBusinessBySlug
+    request: query/get-business-by-slug/request.vtl
+    response: common/generic-response.vtl
+
+  - dataSource: UserTable
+    type: Query
+    field: getUserByIdentity
+    request: common/common-get-request.vtl
+    response: common/owner-can-read-response.vtl
+
+    #### mutations
+  - dataSource: BusinessTable
+    type: Mutation
+    field: createBusiness
+    request: common/common-create.vtl
+    response: common/generic-response.vtl
+  - dataSource: BusinessTable
+    type: Mutation
+    field: updateBusiness
+    request: common/common-update-request-with-owner.vtl
+    response: common/generic-response.vtl
+  - dataSource: UserTable
+    type: Mutation
+    field: createUser
+    request: common/common-create-with-owner.vtl
+    response: common/generic-response.vtl
+  - dataSource: UserTable
+    type: Mutation
+    field: updateUserSettings
+    request: common/common-update-request-with-owner.vtl
+    response: common/generic-response.vtl
+
+  ## lambda
+  - dataSource: SendEmailLambda
+    type: Mutation
+    field: sendEmail
+    request: invoke/sendEmail/request.vtl
+    response: common/generic-response.vtl

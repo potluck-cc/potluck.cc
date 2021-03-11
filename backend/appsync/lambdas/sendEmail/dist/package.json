@@ -1,0 +1,30 @@
+{
+  "name": "sendemail",
+  "version": "1.0.0",
+  "description": "Sends a email.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "local": "bash utils/test.sh",
+    "zipit": "bash utils/zipit.sh",
+    "package": "tsc && npm run zipit",
+    "deploy": "aws lambda update-function-code --region us-east-1 --profile potluck --function-name SendEmail-Dev --zip-file fileb://sendEmail.zip"
+  },
+  "author": "Ashton Morris",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.2"
+  },
+  "resolutions": {
+    "apollo-link": "1.2.5"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.67",
+    "@types/node": "^14.14.14",
+    "aws-sdk": "^2.817.0",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}

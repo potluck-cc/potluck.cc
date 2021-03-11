@@ -1,0 +1,21 @@
+{
+  "name": "potluck-backend",
+  "version": "1.0.0",
+  "description": "AppSync + DynamoDB Stack",
+  "main": "index.js",
+  "scripts": {
+    "build:lambdas": "bash scripts/build-lambdas.sh",
+    "deploy:prod": "sls deploy --stage Prod --region us-east-1",
+    "deploy:dev": "sls deploy --stage Dev --region us-east-1",
+    "deploy:qa": "sls deploy --stage QA --region us-east-1",
+    "destroy": "sls remove --stage Dev --region us-east-1"
+  },
+  "author": "Ashton Morris",
+  "license": "ISC",
+  "config": {
+    "region": "us-east-1"
+  },
+  "dependencies": {
+    "serverless-appsync-plugin": "^1.5.0"
+  }
+}

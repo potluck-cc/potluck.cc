@@ -1,0 +1,21 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "Query",
+    "query" : {
+        "expression" : "#region = :region and begins_with(csc, :csc)",
+        "expressionNames": {
+            "#region" : "region"
+        },
+        "expressionValues" : {
+            ":csc": { "S" : "$context.args.csc" },
+            ":region": { "S" : "$context.args.region" },
+        }
+    },
+    "index" : "csc-index",
+    "nextToken" : $util.toJson($util.defaultIfNullOrEmpty($ctx.args.nextToken, null)),
+    "scanIndexForward" : false,
+    "limit" : $util.defaultIfNull($context.args.limit, 20),
+    "consistentRead" : false,
+    "select" : "ALL_ATTRIBUTES",
+    "filter" : #if($context.args.filter) $util.transform.toDynamoDBFilterExpression($ctx.args.filter) #else null #end,
+}

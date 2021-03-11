@@ -1,0 +1,15 @@
+.discover {
+  &__business-list {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    list-style-type: none;
+
+    &__item {
+      margin: 10px;
+    }
+  }
+}

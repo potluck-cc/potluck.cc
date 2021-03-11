@@ -1,0 +1,15 @@
+SendEmail:
+  handler: index.handler
+  name: SendEmail-${self:custom.env}
+  description: This lambda invokes the invite business step function
+  runtime: nodejs12.x
+  timeout: 30
+  environment:
+    SENDGRID_API_KEY: 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
+  tags:
+    ByBlk: ByBlk
+  package:
+    include:
+      - dist/**
+    artifact: ./dist/sendEmail.zip
+    individually: true

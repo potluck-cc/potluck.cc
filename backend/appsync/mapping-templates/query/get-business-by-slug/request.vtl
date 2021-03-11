@@ -1,0 +1,20 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "Query",
+    "query" : {
+        "expression" : "#slug = :slug",
+        "expressionNames": {
+            "#slug" : "slug"
+        },
+        "expressionValues" : {
+            ":slug": { "S" : "$context.args.slug" },
+        }
+    },
+    "index" : "slug-index",
+    "nextToken" : $util.toJson($util.defaultIfNullOrEmpty($ctx.args.nextToken, null)),
+    "scanIndexForward" : false,
+    "limit" : $util.defaultIfNull($context.args.limit, 20),
+    "consistentRead" : false,
+    "select" : "ALL_ATTRIBUTES",
+    "filter" : #if($context.args.filter) $util.transform.toDynamoDBFilterExpression($ctx.args.filter) #else null #end,
+}

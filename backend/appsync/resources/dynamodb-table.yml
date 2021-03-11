@@ -1,0 +1,46 @@
+Resources:
+  BusinessTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: PotluckBusinessTable-${self:custom.env}
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: slug
+          AttributeType: S
+        - AttributeName: csc # country_state_city
+          AttributeType: S
+        - AttributeName: region
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      GlobalSecondaryIndexes:
+        - IndexName: csc-index
+          KeySchema:
+            - AttributeName: region
+              KeyType: HASH
+            - AttributeName: csc
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: slug-index
+          KeySchema:
+            - AttributeName: slug
+              KeyType: HASH
+            - AttributeName: csc
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+  UserTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: PotluckUserTable-${self:custom.env}
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
