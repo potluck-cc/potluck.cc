@@ -44,8 +44,10 @@ export default async function sendEmail({
 
     try {
       await sgMail.send(newMessage);
+
+      return true;
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   } else throw new Error("API Key missing.");
 }

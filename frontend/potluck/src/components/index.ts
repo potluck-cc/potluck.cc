@@ -5,3 +5,4 @@ export { default as Menu } from "./Menu";
 export { default as Order } from "./Order";
 export { Profile } from "./Profile";
 export { default as Questions } from "./Questions";
+export { default as GenericDialog } from "./GenericDialog";

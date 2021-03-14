@@ -9,6 +9,10 @@ cd lambdas
 
 declare -a lambdaDirs=(
     'sendEmail'
+    'checkoutSession'
+    'completeCheckout'
+    'createPortalSession'
+    'isUserSubscribed'
 )
 
 for path in "${lambdaDirs[@]}"

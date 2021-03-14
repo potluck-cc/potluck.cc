@@ -19,9 +19,25 @@ dataSources:
   - type: AWS_LAMBDA
     name: SendEmailLambda
     config:
-      lambdaFunctionArn: arn:aws:lambda:us-east-1:185477522948:function:SendEmail-Dev
+      lambdaFunctionArn: arn:aws:lambda:us-east-1:185477522948:function:SendEmail-${self:custom.env}
+  - type: AWS_LAMBDA
+    name: CheckoutSessionLambda
+    config:
+      lambdaFunctionArn: arn:aws:lambda:us-east-1:185477522948:function:CheckoutSession-${self:custom.env}
+  - type: AWS_LAMBDA
+    name: CompleteCheckoutLambda
+    config:
+      lambdaFunctionArn: arn:aws:lambda:us-east-1:185477522948:function:CompleteCheckout-${self:custom.env}
+  - type: AWS_LAMBDA
+    name: CreatePortalSessionLambda
+    config:
+      lambdaFunctionArn: arn:aws:lambda:us-east-1:185477522948:function:CreatePortalSession-${self:custom.env}
+  - type: AWS_LAMBDA
+    name: IsUserSubscribedLambda
+    config:
+      lambdaFunctionArn: arn:aws:lambda:us-east-1:185477522948:function:IsUserSubscribed-${self:custom.env}
 mappingTemplates:
-  #### queries
+  #### business
   - dataSource: BusinessTable
     type: Query
     field: getBusinessesWithOptions
@@ -42,14 +58,6 @@ mappingTemplates:
     field: getBusinessBySlug
     request: query/get-business-by-slug/request.vtl
     response: common/generic-response.vtl
-
-  - dataSource: UserTable
-    type: Query
-    field: getUserByIdentity
-    request: common/common-get-request.vtl
-    response: common/owner-can-read-response.vtl
-
-    #### mutations
   - dataSource: BusinessTable
     type: Mutation
     field: createBusiness
@@ -59,6 +67,23 @@ mappingTemplates:
     type: Mutation
     field: updateBusiness
     request: common/common-update-request-with-owner.vtl
+    response: common/generic-response.vtl
+
+  #### user
+  - dataSource: UserTable
+    type: Query
+    field: getUserByIdentity
+    request: query/get-user-by-identity/request.vtl
+    response: common/owner-can-read-response.vtl
+  - dataSource: UserTable
+    type: Query
+    field: getUserById
+    request: common/common-get-request.vtl
+    response: common/generic-response.vtl
+  - dataSource: UserTable
+    type: Mutation
+    field: updateUser
+    request: common/common-update-request.vtl
     response: common/generic-response.vtl
   - dataSource: UserTable
     type: Mutation
@@ -70,10 +95,51 @@ mappingTemplates:
     field: updateUserSettings
     request: common/common-update-request-with-owner.vtl
     response: common/generic-response.vtl
+  - dataSource: IsUserSubscribedLambda
+    type: User
+    field: subscribed
+    request: false
+    response: false
 
   ## lambda
-  - dataSource: SendEmailLambda
+  - dataSource: none
     type: Mutation
     field: sendEmail
-    request: invoke/sendEmail/request.vtl
-    response: common/generic-response.vtl
+    request: common/before.vtl
+    response: common/after.vtl
+    kind: PIPELINE
+    functions:
+      - GetUserByCognitoSubFunction
+      - isUserSubscribedFunction
+      - sendEmailLambdaFunction
+
+  - dataSource: CheckoutSessionLambda
+    type: Mutation
+    field: startCheckoutSession
+    request: false
+    response: false
+  - dataSource: CompleteCheckoutLambda
+    type: Mutation
+    field: completeCheckoutSession
+    request: false
+    response: false
+  - dataSource: CreatePortalSessionLambda
+    type: Mutation
+    field: createPortalSession
+    request: false
+    response: false
+
+  ###functions
+functionConfigurations:
+  - dataSource: UserTable
+    name: "GetUserByCognitoSubFunction"
+    request: mutation/sendEmail/getUser/request.vtl
+    response: mutation/sendEmail/basic-response.vtl
+  - dataSource: IsUserSubscribedLambda
+    name: "isUserSubscribedFunction"
+    request: mutation/sendEmail/isUserSubscribed/request.vtl
+    response: mutation/sendEmail/isUserSubscribed/response.vtl
+  - dataSource: SendEmailLambda
+    name: "sendEmailLambdaFunction"
+    request: mutation/sendEmail/sendEmailFunction/request.vtl
+    response: mutation/sendEmail/basic-response.vtl

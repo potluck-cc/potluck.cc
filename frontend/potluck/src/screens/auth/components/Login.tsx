@@ -73,7 +73,7 @@ export default function () {
         />
       </div>
 
-      {error && <Typography>{error}</Typography>}
+      {error && <Typography style={{ color: "red" }}>{error}</Typography>}
 
       <div>
         <Button

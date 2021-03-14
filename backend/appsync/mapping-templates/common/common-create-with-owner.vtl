@@ -1,5 +1,5 @@
 #set( $args  = $ctx.args.input )
-#set($argsWithOwner = $args.put("owner", ${context.identity.username}))
+#set($argsWithOwner = $args.put("owner", ${context.args.input.id}))
 
 {
   "version": "2017-02-28",

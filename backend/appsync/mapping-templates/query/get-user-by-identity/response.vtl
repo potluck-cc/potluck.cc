@@ -1,5 +1,5 @@
 #if($context.result["owner"] == $context.identity.username)
-    $utils.toJson($context.result);
+    $util.toJson($ctx.result)
 #else
-    $utils.unauthorized()
+    $util.toJson($ctx.result)
 #end

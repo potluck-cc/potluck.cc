@@ -62,6 +62,30 @@
         "LogGroupName": "/aws/lambda/SendEmail-Dev"
       }
     },
+    "CheckoutSessionLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/CheckoutSession-Dev"
+      }
+    },
+    "CompleteCheckoutLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/CompleteCheckout-Dev"
+      }
+    },
+    "CreatePortalSessionLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/CreatePortalSession-Dev"
+      }
+    },
+    "IsUserSubscribedLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/IsUserSubscribed-Dev"
+      }
+    },
     "IamRoleLambdaExecution": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -105,6 +129,18 @@
                   "Resource": [
                     {
                       "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/SendEmail-Dev:*"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/CheckoutSession-Dev:*"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/CompleteCheckout-Dev:*"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/CreatePortalSession-Dev:*"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/IsUserSubscribed-Dev:*"
                     }
                   ]
                 },
@@ -116,6 +152,18 @@
                   "Resource": [
                     {
                       "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/SendEmail-Dev:*:*"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/CheckoutSession-Dev:*:*"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/CompleteCheckout-Dev:*:*"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/CreatePortalSession-Dev:*:*"
+                    },
+                    {
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/IsUserSubscribed-Dev:*:*"
                     }
                   ]
                 }
@@ -139,6 +187,23 @@
         }
       }
     },
+    "AwsAppsyncLayerLambdaLayera52d9b89d04d0317b2bca8dfac6b37e104f888f0": {
+      "Type": "AWS::Lambda::LayerVersion",
+      "Properties": {
+        "Content": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/potluck-appsync/Dev/1615584040891-2021-03-12T21:20:40.891Z/awsAppsyncLayer.zip"
+        },
+        "LayerName": "AwsAppsyncLayer-Dev",
+        "Description": "Node module layer for aws-appsync since its 10mb",
+        "CompatibleRuntimes": [
+          "nodejs12.x"
+        ]
+      },
+      "DeletionPolicy": "Retain"
+    },
     "SendEmailLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -146,7 +211,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/potluck-appsync/Dev/1615433512533-2021-03-11T03:31:52.533Z/sendEmail.zip"
+          "S3Key": "serverless/potluck-appsync/Dev/1615686362686-2021-03-14T01:46:02.686Z/sendEmail.zip"
         },
         "FunctionName": "SendEmail-Dev",
         "Handler": "index.handler",
@@ -164,10 +229,6 @@
           {
             "Key": "Potluck",
             "Value": "Potluck"
-          },
-          {
-            "Key": "ByBlk",
-            "Value": "ByBlk"
           }
         ],
         "Environment": {
@@ -180,14 +241,202 @@
         "SendEmailLogGroup"
       ]
     },
-    "SendEmailLambdaVersionSMY62mMjF29muA8bIiUdRthBCCkLcyIS1toj9uABsrg": {
+    "SendEmailLambdaVersionjjgC6aueF9RXUDZauiur2DYdQA173a5HRiiAABHh8I": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "SendEmailLambdaFunction"
         },
-        "CodeSha256": "+DTY2assofF7ElvqdODfD/XlIcXFNj6khtm0FoG3Nfc=",
+        "CodeSha256": "VJBlaFztWPiqbZUT/c3gDFsHPPZC/13h/yAELACBEBE=",
+        "Description": "This lambda invokes the invite business step function"
+      }
+    },
+    "CheckoutSessionLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/potluck-appsync/Dev/1615686362686-2021-03-14T01:46:02.686Z/checkoutSession.zip"
+        },
+        "FunctionName": "CheckoutSession-Dev",
+        "Handler": "index.handler",
+        "MemorySize": 1024,
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 30,
+        "Description": "This lambda invokes the invite business step function",
+        "Tags": [
+          {
+            "Key": "Potluck",
+            "Value": "Potluck"
+          }
+        ],
+        "Environment": {
+          "Variables": {
+            "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+          }
+        }
+      },
+      "DependsOn": [
+        "CheckoutSessionLogGroup"
+      ]
+    },
+    "CheckoutSessionLambdaVersionLl6rgJwyhlSYBmJlc5iWW9McSjS3FjlG2dOUT23hGM": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "CheckoutSessionLambdaFunction"
+        },
+        "CodeSha256": "QI9BI/T+CJKfrCAVXd79jH3DaaIeS4xlR7XkcbaMgJw=",
+        "Description": "This lambda invokes the invite business step function"
+      }
+    },
+    "CompleteCheckoutLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/potluck-appsync/Dev/1615686362686-2021-03-14T01:46:02.686Z/completeCheckout.zip"
+        },
+        "FunctionName": "CompleteCheckout-Dev",
+        "Handler": "index.handler",
+        "MemorySize": 1024,
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        },
+        "Runtime": "nodejs12.x",
+        "Timeout": 30,
+        "Description": "This lambda invokes the invite business step function",
+        "Tags": [
+          {
+            "Key": "Potluck",
+            "Value": "Potluck"
+          }
+        ],
+        "Environment": {
+          "Variables": {
+            "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+          }
+        },
+        "Layers": [
+          "arn:aws:lambda:us-east-1:185477522948:layer:AwsAppsyncLayer-Dev:2"
+        ]
+      },
+      "DependsOn": [
+        "CompleteCheckoutLogGroup"
+      ]
+    },
+    "CompleteCheckoutLambdaVersionSnO91BZMUycv15q0tzPoMzJ9lh6AdF2A4Pgx77Y8H0s": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "CompleteCheckoutLambdaFunction"
+        },
+        "CodeSha256": "VTirm863fRluzr0LPFj2jqBa2FAaKBWog2sTV4F5BfE=",
+        "Description": "This lambda invokes the invite business step function"
+      }
+    },
+    "CreatePortalSessionLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/potluck-appsync/Dev/1615686362686-2021-03-14T01:46:02.686Z/CreatePortalSession.zip"
+        },
+        "FunctionName": "CreatePortalSession-Dev",
+        "Handler": "index.handler",
+        "MemorySize": 1024,
+        "Role": "arn:aws:iam::185477522948:role/appsync-lambda-role",
+        "Runtime": "nodejs12.x",
+        "Timeout": 30,
+        "Description": "This lambda invokes the invite business step function",
+        "Tags": [
+          {
+            "Key": "Potluck",
+            "Value": "Potluck"
+          }
+        ],
+        "Environment": {
+          "Variables": {
+            "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+          }
+        }
+      },
+      "DependsOn": [
+        "CreatePortalSessionLogGroup"
+      ]
+    },
+    "CreatePortalSessionLambdaVersion8jUX4QeHbSzyGYMf53r4KQ2jBZgfz3JoMyplwIKSyBY": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "CreatePortalSessionLambdaFunction"
+        },
+        "CodeSha256": "CQ1eOc39viaR9H97HWYPX6sspTJNaQv1uWRDrwU/f30=",
+        "Description": "This lambda invokes the invite business step function"
+      }
+    },
+    "IsUserSubscribedLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/potluck-appsync/Dev/1615686362686-2021-03-14T01:46:02.686Z/IsUserSubscribed.zip"
+        },
+        "FunctionName": "IsUserSubscribed-Dev",
+        "Handler": "index.handler",
+        "MemorySize": 1024,
+        "Role": "arn:aws:iam::185477522948:role/appsync-lambda-role",
+        "Runtime": "nodejs12.x",
+        "Timeout": 30,
+        "Description": "This lambda invokes the invite business step function",
+        "Tags": [
+          {
+            "Key": "Potluck",
+            "Value": "Potluck"
+          }
+        ],
+        "Environment": {
+          "Variables": {
+            "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+          }
+        },
+        "Layers": [
+          "arn:aws:lambda:us-east-1:185477522948:layer:AwsAppsyncLayer-Dev:2"
+        ]
+      },
+      "DependsOn": [
+        "IsUserSubscribedLogGroup"
+      ]
+    },
+    "IsUserSubscribedLambdaVersion4t3786buLAtoRD9MMzKSaK4gSI8iDVE71eVsFloVA": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "IsUserSubscribedLambdaFunction"
+        },
+        "CodeSha256": "W831nKcoVdvSpGbe97zFqVutnZumWAWdFvod7SupQM8=",
         "Description": "This lambda invokes the invite business step function"
       }
     },
@@ -306,13 +555,13 @@
           ]
         },
         "Description": "Auto-generated api key",
-        "Expires": 1646967600
+        "Expires": 1647219600
       }
     },
     "GraphQlSchema": {
       "Type": "AWS::AppSync::GraphQLSchema",
       "Properties": {
-        "Definition": "schema {\n  query: Query\n  mutation: Mutation\n}\n\ntype Query {\n  getUserByIdentity(id: ID!): User @aws_cognito_user_pools\n\n  getBusinessesWithOptions(\n    region: String!\n    csc: String!     filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getFeaturedBusinesses(\n    filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getBusinessByLocationAndSlug(csc: String!, slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  getBusinessBySlug(slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n}\n\ntype Mutation {\n  createUser(input: UserInput!): User @aws_iam\n  updateUserSettings(input: SettingsInput!): User @aws_cognito_user_pools\n  createBusiness(input: CreateBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin\"])\n  updateBusiness(input: EditBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin, Business\"])\n  sendEmail(input: SendEmailInput!): Boolean @aws_cognito_user_pools\n}\n\ninput SendEmailInput {\n  firstName: String!\n  lastName: String!\n  address: String!\n  city: String!\n  zip: String!\n  phone: String!\n  businessEmail: String!\n  merch: [String!]!\n  gifts: [String!]!\n  paymentMethod: String!\n  preferredStrain: String!\n  quantity: String!\n}\n\ntype User @aws_cognito_user_pools {\n  id: ID!\n  settings: UserSettings\n}\n\ninput UserInput {\n  id: ID!\n  settings: SettingsInput\n}\n\ntype UserSettings @aws_cognito_user_pools {\n  darkMode: Boolean\n  favorites: [Business]\n}\n\ninput SettingsInput {\n  darkMode: Boolean\n  favorites: [String]\n}\n\nenum State {\n  nj\n}\n\ntype MenuItem @aws_cognito_user_pools @aws_iam @aws_api_key {\n  title: String\n  items: [String]\n}\n\ninput MenuItemInput @aws_cognito_user_pools @aws_iam {\n  title: String\n  items: [String]\n}\n\ntype Business @aws_cognito_user_pools @aws_iam @aws_api_key {\n  id: ID!\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItem]\n}\n\ntype BusinessConnection @aws_iam @aws_cognito_user_pools @aws_api_key {\n  items: [Business]\n  nextToken: String\n}\n\ninput BusinessFilterInput {\n  tags: [TableStringFilterInput]\n  industry: TableStringFilterInput\n}\n\ninput CreateBusinessInput {\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\ninput EditBusinessInput {\n  id: ID\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\n\ninput TableBooleanFilterInput {\n  eq: Boolean\n  ne: Boolean\n}\n\ninput TableFloatFilterInput {\n  between: [Float]\n  contains: Float\n  eq: Float\n  ge: Float\n  gt: Float\n  le: Float\n  lt: Float\n  ne: Float\n  notContains: Float\n}\n\ninput TableIDFilterInput {\n  beginsWith: ID\n  between: [ID]\n  contains: ID\n  eq: ID\n  ge: ID\n  gt: ID\n  le: ID\n  lt: ID\n  ne: ID\n  notContains: ID\n}\n\ninput TableIntFilterInput {\n  between: [Int]\n  contains: Int\n  eq: Int\n  ge: Int\n  gt: Int\n  le: Int\n  lt: Int\n  ne: Int\n  notContains: Int\n}\n\ninput TableStringFilterInput {\n  beginsWith: String\n  between: [String]\n  contains: String\n  eq: String\n  ge: String\n  gt: String\n  le: String\n  lt: String\n  ne: String\n  notContains: String\n}\n",
+        "Definition": "schema {\n  query: Query\n  mutation: Mutation\n}\n\ntype Query {\n  getUserByIdentity: User @aws_cognito_user_pools\n\n  getUserById(id: ID!): User @aws_iam\n\n  getBusinessesWithOptions(\n    region: String!\n    csc: String!     filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getFeaturedBusinesses(\n    filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getBusinessByLocationAndSlug(csc: String!, slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  getBusinessBySlug(slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n}\n\ntype Mutation {\n  createUser(input: UserInput!): User @aws_iam\n\n  updateUser(input: UserInput!): User @aws_iam\n\n  updateUserSettings(input: SettingsInput!): User @aws_cognito_user_pools\n\n  createBusiness(input: CreateBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin\"])\n\n  updateBusiness(input: EditBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin, Business\"])\n\n  sendEmail(input: SendEmailInput!): Boolean @aws_cognito_user_pools\n\n  startCheckoutSession(priceId: String!, redirect_url: String): String!\n    @aws_cognito_user_pools\n\n  completeCheckoutSession(sessionId: String!): String! @aws_cognito_user_pools\n\n  createPortalSession(customerId: String!): String! @aws_cognito_user_pools\n}\n\ninput SendEmailInput {\n  firstName: String!\n  lastName: String!\n  address: String!\n  city: String!\n  zip: String!\n  phone: String!\n  businessEmail: String!\n  merch: [String!]!\n  gifts: [String!]!\n  paymentMethod: String!\n  preferredStrain: String!\n  quantity: String!\n}\n\ntype User @aws_cognito_user_pools @aws_iam {\n  id: ID!\n  stripeCustomerId: String\n  subscribed: Boolean   settings: UserSettings\n}\n\ninput UserInput {\n  id: ID!\n  stripeCustomerId: String\n}\n\ntype UserSettings @aws_cognito_user_pools @aws_iam {\n  darkMode: Boolean\n  favorites: [Business]\n}\n\ninput SettingsInput {\n  darkMode: Boolean\n  favorites: [String]\n}\n\nenum State {\n  nj\n}\n\ntype MenuItem @aws_cognito_user_pools @aws_iam @aws_api_key {\n  title: String\n  items: [String]\n}\n\ninput MenuItemInput @aws_cognito_user_pools @aws_iam {\n  title: String\n  items: [String]\n}\n\ntype Business @aws_cognito_user_pools @aws_iam @aws_api_key {\n  id: ID!\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItem]\n}\n\ntype BusinessConnection @aws_iam @aws_cognito_user_pools @aws_api_key {\n  items: [Business]\n  nextToken: String\n}\n\ninput BusinessFilterInput {\n  tags: [TableStringFilterInput]\n  industry: TableStringFilterInput\n}\n\ninput CreateBusinessInput {\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\ninput EditBusinessInput {\n  id: ID\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\n\ninput TableBooleanFilterInput {\n  eq: Boolean\n  ne: Boolean\n}\n\ninput TableFloatFilterInput {\n  between: [Float]\n  contains: Float\n  eq: Float\n  ge: Float\n  gt: Float\n  le: Float\n  lt: Float\n  ne: Float\n  notContains: Float\n}\n\ninput TableIDFilterInput {\n  beginsWith: ID\n  between: [ID]\n  contains: ID\n  eq: ID\n  ge: ID\n  gt: ID\n  le: ID\n  lt: ID\n  ne: ID\n  notContains: ID\n}\n\ninput TableIntFilterInput {\n  between: [Int]\n  contains: Int\n  eq: Int\n  ge: Int\n  gt: Int\n  le: Int\n  lt: Int\n  ne: Int\n  notContains: Int\n}\n\ninput TableStringFilterInput {\n  beginsWith: String\n  between: [String]\n  contains: String\n  eq: String\n  ge: String\n  gt: String\n  le: String\n  lt: String\n  ne: String\n  notContains: String\n}\n",
         "ApiId": {
           "Fn::GetAtt": [
             "GraphQlApi",
@@ -572,6 +821,202 @@
         ]
       }
     },
+    "GraphQlDsCheckoutSessionLambdaRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "appsync.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "GraphQlDsCheckoutSessionLambdaPolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Action": [
+                    "lambda:invokeFunction"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    "arn:aws:lambda:us-east-1:185477522948:function:CheckoutSession-Dev",
+                    {
+                      "Fn::Join": [
+                        ":",
+                        [
+                          "arn:aws:lambda:us-east-1:185477522948:function:CheckoutSession-Dev",
+                          "*"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "GraphQlDsCompleteCheckoutLambdaRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "appsync.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "GraphQlDsCompleteCheckoutLambdaPolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Action": [
+                    "lambda:invokeFunction"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    "arn:aws:lambda:us-east-1:185477522948:function:CompleteCheckout-Dev",
+                    {
+                      "Fn::Join": [
+                        ":",
+                        [
+                          "arn:aws:lambda:us-east-1:185477522948:function:CompleteCheckout-Dev",
+                          "*"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "GraphQlDsCreatePortalSessionLambdaRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "appsync.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "GraphQlDsCreatePortalSessionLambdaPolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Action": [
+                    "lambda:invokeFunction"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    "arn:aws:lambda:us-east-1:185477522948:function:CreatePortalSession-Dev",
+                    {
+                      "Fn::Join": [
+                        ":",
+                        [
+                          "arn:aws:lambda:us-east-1:185477522948:function:CreatePortalSession-Dev",
+                          "*"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "GraphQlDsIsUserSubscribedLambdaRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "appsync.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "GraphQlDsIsUserSubscribedLambdaPolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Action": [
+                    "lambda:invokeFunction"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    "arn:aws:lambda:us-east-1:185477522948:function:IsUserSubscribed-Dev",
+                    {
+                      "Fn::Join": [
+                        ":",
+                        [
+                          "arn:aws:lambda:us-east-1:185477522948:function:IsUserSubscribed-Dev",
+                          "*"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
     "GraphQlDsBusinessTable": {
       "Type": "AWS::AppSync::DataSource",
       "Properties": {
@@ -642,6 +1087,157 @@
         "LambdaConfig": {
           "LambdaFunctionArn": "arn:aws:lambda:us-east-1:185477522948:function:SendEmail-Dev"
         }
+      }
+    },
+    "GraphQlDsCheckoutSessionLambda": {
+      "Type": "AWS::AppSync::DataSource",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "CheckoutSessionLambda",
+        "Type": "AWS_LAMBDA",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "GraphQlDsCheckoutSessionLambdaRole",
+            "Arn"
+          ]
+        },
+        "LambdaConfig": {
+          "LambdaFunctionArn": "arn:aws:lambda:us-east-1:185477522948:function:CheckoutSession-Dev"
+        }
+      }
+    },
+    "GraphQlDsCompleteCheckoutLambda": {
+      "Type": "AWS::AppSync::DataSource",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "CompleteCheckoutLambda",
+        "Type": "AWS_LAMBDA",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "GraphQlDsCompleteCheckoutLambdaRole",
+            "Arn"
+          ]
+        },
+        "LambdaConfig": {
+          "LambdaFunctionArn": "arn:aws:lambda:us-east-1:185477522948:function:CompleteCheckout-Dev"
+        }
+      }
+    },
+    "GraphQlDsCreatePortalSessionLambda": {
+      "Type": "AWS::AppSync::DataSource",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "CreatePortalSessionLambda",
+        "Type": "AWS_LAMBDA",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "GraphQlDsCreatePortalSessionLambdaRole",
+            "Arn"
+          ]
+        },
+        "LambdaConfig": {
+          "LambdaFunctionArn": "arn:aws:lambda:us-east-1:185477522948:function:CreatePortalSession-Dev"
+        }
+      }
+    },
+    "GraphQlDsIsUserSubscribedLambda": {
+      "Type": "AWS::AppSync::DataSource",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "IsUserSubscribedLambda",
+        "Type": "AWS_LAMBDA",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "GraphQlDsIsUserSubscribedLambdaRole",
+            "Arn"
+          ]
+        },
+        "LambdaConfig": {
+          "LambdaFunctionArn": "arn:aws:lambda:us-east-1:185477522948:function:IsUserSubscribed-Dev"
+        }
+      }
+    },
+    "GraphQlFunctionConfigurationGetUserByCognitoSubFunction": {
+      "Type": "AWS::AppSync::FunctionConfiguration",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "GetUserByCognitoSubFunction",
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "GraphQlDsUserTable",
+            "Name"
+          ]
+        },
+        "FunctionVersion": "2018-05-29",
+        "RequestMappingTemplate": "{\n    \"version\": \"2017-02-28\",\n    \"operation\": \"GetItem\",\n    \"key\": {\n        \"id\": $util.dynamodb.toDynamoDBJson($ctx.stash.sub),\n    }\n}",
+        "ResponseMappingTemplate": "#if($ctx.error)\n    $util.error($ctx.error.message, $ctx.error.type)\n#end\n$util.toJson($context.result)"
+      }
+    },
+    "GraphQlFunctionConfigurationisUserSubscribedFunction": {
+      "Type": "AWS::AppSync::FunctionConfiguration",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "isUserSubscribedFunction",
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "GraphQlDsIsUserSubscribedLambda",
+            "Name"
+          ]
+        },
+        "FunctionVersion": "2018-05-29",
+        "RequestMappingTemplate": "{\n    \"operation\": \"Invoke\",\n    \"payload\": $util.toJson($context.prev.result)\n}",
+        "ResponseMappingTemplate": "#if($ctx.error)\n    $util.error($ctx.error.message, $ctx.error.type)\n#end\n\n#if($context.result)\n    $util.toJson($context.result)\n#else\n    $util.unauthorized()\n#end\n\n\n\n"
+      }
+    },
+    "GraphQlFunctionConfigurationsendEmailLambdaFunction": {
+      "Type": "AWS::AppSync::FunctionConfiguration",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "Name": "sendEmailLambdaFunction",
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "GraphQlDsSendEmailLambda",
+            "Name"
+          ]
+        },
+        "FunctionVersion": "2018-05-29",
+        "RequestMappingTemplate": "{\n    \"operation\": \"Invoke\",\n    \"payload\": $util.toJson($context.args)\n}",
+        "ResponseMappingTemplate": "#if($ctx.error)\n    $util.error($ctx.error.message, $ctx.error.type)\n#end\n$util.toJson($context.result)"
       }
     },
     "GraphQlResolverQuerygetBusinessesWithOptions": {
@@ -736,29 +1332,6 @@
         }
       }
     },
-    "GraphQlResolverQuerygetUserByIdentity": {
-      "Type": "AWS::AppSync::Resolver",
-      "DependsOn": "GraphQlSchema",
-      "Properties": {
-        "ApiId": {
-          "Fn::GetAtt": [
-            "GraphQlApi",
-            "ApiId"
-          ]
-        },
-        "TypeName": "Query",
-        "FieldName": "getUserByIdentity",
-        "RequestMappingTemplate": "{\n    \"version\": \"2017-02-28\",\n    \"operation\": \"GetItem\",\n    \"key\": {\n        \"id\": $util.dynamodb.toDynamoDBJson($ctx.args.id),\n    }\n}",
-        "ResponseMappingTemplate": "#if($context.result[\"owner\"] == $context.identity.username)\n    $utils.toJson($context.result);\n#else\n    $utils.unauthorized()\n#end",
-        "Kind": "UNIT",
-        "DataSourceName": {
-          "Fn::GetAtt": [
-            "GraphQlDsUserTable",
-            "Name"
-          ]
-        }
-      }
-    },
     "GraphQlResolverMutationcreateBusiness": {
       "Type": "AWS::AppSync::Resolver",
       "DependsOn": "GraphQlSchema",
@@ -794,12 +1367,81 @@
         },
         "TypeName": "Mutation",
         "FieldName": "updateBusiness",
-        "RequestMappingTemplate": "{\n  \"version\": \"2017-02-28\",\n  \"operation\": \"UpdateItem\",\n  \"key\": {\n    \"id\": $util.dynamodb.toDynamoDBJson($ctx.args.input.id)\n  },\n\n  ## Set up some space to keep track of things we're updating **\n  #set( $expNames  = {} )\n  #set( $expValues = {} )\n  #set( $expSet = {} )\n  #set( $expAdd = {} )\n  #set( $expRemove = [] )\n\n  ## Iterate through each argument, skipping keys **\n  #foreach( $entry in $util.map.copyAndRemoveAllKeys($ctx.args.input, [\"id\"]).entrySet() )\n    #if( $util.isNull($entry.value) )\n      ## If the argument is set to \"null\", then remove that attribute from the item in DynamoDB **\n\n      #set( $discard = ${expRemove.add(\"#${entry.key}\")} )\n      $!{expNames.put(\"#${entry.key}\", \"${entry.key}\")}\n    #else\n      ## Otherwise set (or update) the attribute on the item in DynamoDB **\n\n      $!{expSet.put(\"#${entry.key}\", \":${entry.key}\")}\n      $!{expNames.put(\"#${entry.key}\", \"${entry.key}\")}\n      $!{expValues.put(\":${entry.key}\", $util.dynamodb.toDynamoDB($entry.value))}\n    #end\n  #end\n\n  ## Start building the update expression, starting with attributes we're going to SET **\n  #set( $expression = \"\" )\n  #if( !${expSet.isEmpty()} )\n    #set( $expression = \"SET\" )\n    #foreach( $entry in $expSet.entrySet() )\n      #set( $expression = \"${expression} ${entry.key} = ${entry.value}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Continue building the update expression, adding attributes we're going to ADD **\n  #if( !${expAdd.isEmpty()} )\n    #set( $expression = \"${expression} ADD\" )\n    #foreach( $entry in $expAdd.entrySet() )\n      #set( $expression = \"${expression} ${entry.key} ${entry.value}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Continue building the update expression, adding attributes we're going to REMOVE **\n  #if( !${expRemove.isEmpty()} )\n    #set( $expression = \"${expression} REMOVE\" )\n\n    #foreach( $entry in $expRemove )\n      #set( $expression = \"${expression} ${entry}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Finally, write the update expression into the document, along with any expressionNames and expressionValues **\n  \"update\": {\n    \"expression\": \"${expression}\",\n    #if( !${expNames.isEmpty()} )\n      \"expressionNames\": $utils.toJson($expNames),\n    #end\n    #if( !${expValues.isEmpty()} )\n      \"expressionValues\": $utils.toJson($expValues),\n    #end\n  },\n   \"condition\" : {\n      \"expression\": \"contains(#canAccess, :expectedOwner)\",\n        \"expressionNames\": {\n          \"#canAccess\": \"canAccess\"\n      },\n      \"expressionValues\": {\n        \":expectedOwner\": { \"S\": \"${context.identity.username}\" },\n      }\n  }\n}",
+        "RequestMappingTemplate": "#set( $args  = $ctx.args.input )\n#set($argsWithOwner = $args.put(\"owner\", ${context.args.input.id}))\n\n{\n  \"version\": \"2017-02-28\",\n  \"operation\": \"UpdateItem\",\n  \"key\": {\n    \"id\": $util.dynamodb.toDynamoDBJson($ctx.args.input.id)\n  },\n\n  ## Set up some space to keep track of things we're updating **\n  #set( $expNames  = {} )\n  #set( $expValues = {} )\n  #set( $expSet = {} )\n  #set( $expAdd = {} )\n  #set( $expRemove = [] )\n\n  ## Iterate through each argument, skipping keys **\n  #foreach( $entry in $util.map.copyAndRemoveAllKeys($args, [\"id\"]).entrySet() )\n    #if( $util.isNull($entry.value) )\n      ## If the argument is set to \"null\", then remove that attribute from the item in DynamoDB **\n\n      #set( $discard = ${expRemove.add(\"#${entry.key}\")} )\n      $!{expNames.put(\"#${entry.key}\", \"${entry.key}\")}\n    #else\n      ## Otherwise set (or update) the attribute on the item in DynamoDB **\n\n      $!{expSet.put(\"#${entry.key}\", \":${entry.key}\")}\n      $!{expNames.put(\"#${entry.key}\", \"${entry.key}\")}\n      $!{expValues.put(\":${entry.key}\", $util.dynamodb.toDynamoDB($entry.value))}\n    #end\n  #end\n\n  ## Start building the update expression, starting with attributes we're going to SET **\n  #set( $expression = \"\" )\n  #if( !${expSet.isEmpty()} )\n    #set( $expression = \"SET\" )\n    #foreach( $entry in $expSet.entrySet() )\n      #set( $expression = \"${expression} ${entry.key} = ${entry.value}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Continue building the update expression, adding attributes we're going to ADD **\n  #if( !${expAdd.isEmpty()} )\n    #set( $expression = \"${expression} ADD\" )\n    #foreach( $entry in $expAdd.entrySet() )\n      #set( $expression = \"${expression} ${entry.key} ${entry.value}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Continue building the update expression, adding attributes we're going to REMOVE **\n  #if( !${expRemove.isEmpty()} )\n    #set( $expression = \"${expression} REMOVE\" )\n\n    #foreach( $entry in $expRemove )\n      #set( $expression = \"${expression} ${entry}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Finally, write the update expression into the document, along with any expressionNames and expressionValues **\n  \"update\": {\n    \"expression\": \"${expression}\",\n    #if( !${expNames.isEmpty()} )\n      \"expressionNames\": $utils.toJson($expNames),\n    #end\n    #if( !${expValues.isEmpty()} )\n      \"expressionValues\": $utils.toJson($expValues),\n    #end\n  },\n   \"condition\" : {\n      \"expression\": \"contains(#canAccess, :expectedOwner)\",\n        \"expressionNames\": {\n          \"#canAccess\": \"canAccess\"\n      },\n      \"expressionValues\": {\n        \":expectedOwner\": { \"S\": \"${context.identity.username}\" },\n      }\n  }\n}",
         "ResponseMappingTemplate": "$util.toJson($ctx.result)",
         "Kind": "UNIT",
         "DataSourceName": {
           "Fn::GetAtt": [
             "GraphQlDsBusinessTable",
+            "Name"
+          ]
+        }
+      }
+    },
+    "GraphQlResolverQuerygetUserByIdentity": {
+      "Type": "AWS::AppSync::Resolver",
+      "DependsOn": "GraphQlSchema",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "TypeName": "Query",
+        "FieldName": "getUserByIdentity",
+        "RequestMappingTemplate": "{\n    \"version\": \"2017-02-28\",\n    \"operation\": \"GetItem\",\n    \"key\": {\n        \"id\": $util.dynamodb.toDynamoDBJson($context.identity.username),\n    }\n}",
+        "ResponseMappingTemplate": "#if($context.result[\"owner\"] == $context.identity.username)\n    $util.toJson($ctx.result)\n#else\n    $util.unauthorized()\n#end",
+        "Kind": "UNIT",
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "GraphQlDsUserTable",
+            "Name"
+          ]
+        }
+      }
+    },
+    "GraphQlResolverQuerygetUserById": {
+      "Type": "AWS::AppSync::Resolver",
+      "DependsOn": "GraphQlSchema",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "TypeName": "Query",
+        "FieldName": "getUserById",
+        "RequestMappingTemplate": "{\n    \"version\": \"2017-02-28\",\n    \"operation\": \"GetItem\",\n    \"key\": {\n        \"id\": $util.dynamodb.toDynamoDBJson($ctx.args.id),\n    }\n}",
+        "ResponseMappingTemplate": "$util.toJson($ctx.result)",
+        "Kind": "UNIT",
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "GraphQlDsUserTable",
+            "Name"
+          ]
+        }
+      }
+    },
+    "GraphQlResolverMutationupdateUser": {
+      "Type": "AWS::AppSync::Resolver",
+      "DependsOn": "GraphQlSchema",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "TypeName": "Mutation",
+        "FieldName": "updateUser",
+        "RequestMappingTemplate": "{\n  \"version\": \"2017-02-28\",\n  \"operation\": \"UpdateItem\",\n  \"key\": {\n    \"id\": #if($ctx.args.input.id) $util.dynamodb.toDynamoDBJson($ctx.args.input.id) #else $util.dynamodb.toDynamoDBJson($ctx.identity.username) #end,\n  },\n\n  ## Set up some space to keep track of things we're updating **\n  #set( $expNames  = {} )\n  #set( $expValues = {} )\n  #set( $expSet = {} )\n  #set( $expAdd = {} )\n  #set( $expRemove = [] )\n\n  ## Iterate through each argument, skipping keys **\n  #foreach( $entry in $util.map.copyAndRemoveAllKeys($ctx.args.input, [\"id\"]).entrySet() )\n    #if( $util.isNull($entry.value) )\n      ## If the argument is set to \"null\", then remove that attribute from the item in DynamoDB **\n\n      #set( $discard = ${expRemove.add(\"#${entry.key}\")} )\n      $!{expNames.put(\"#${entry.key}\", \"${entry.key}\")}\n    #else\n      ## Otherwise set (or update) the attribute on the item in DynamoDB **\n\n      $!{expSet.put(\"#${entry.key}\", \":${entry.key}\")}\n      $!{expNames.put(\"#${entry.key}\", \"${entry.key}\")}\n      $!{expValues.put(\":${entry.key}\", $util.dynamodb.toDynamoDB($entry.value))}\n    #end\n  #end\n\n  ## Start building the update expression, starting with attributes we're going to SET **\n  #set( $expression = \"\" )\n  #if( !${expSet.isEmpty()} )\n    #set( $expression = \"SET\" )\n    #foreach( $entry in $expSet.entrySet() )\n      #set( $expression = \"${expression} ${entry.key} = ${entry.value}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Continue building the update expression, adding attributes we're going to ADD **\n  #if( !${expAdd.isEmpty()} )\n    #set( $expression = \"${expression} ADD\" )\n    #foreach( $entry in $expAdd.entrySet() )\n      #set( $expression = \"${expression} ${entry.key} ${entry.value}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Continue building the update expression, adding attributes we're going to REMOVE **\n  #if( !${expRemove.isEmpty()} )\n    #set( $expression = \"${expression} REMOVE\" )\n\n    #foreach( $entry in $expRemove )\n      #set( $expression = \"${expression} ${entry}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Finally, write the update expression into the document, along with any expressionNames and expressionValues **\n  \"update\": {\n    \"expression\": \"${expression}\",\n    #if( !${expNames.isEmpty()} )\n      \"expressionNames\": $utils.toJson($expNames),\n    #end\n    #if( !${expValues.isEmpty()} )\n      \"expressionValues\": $utils.toJson($expValues),\n    #end\n  }\n}",
+        "ResponseMappingTemplate": "$util.toJson($ctx.result)",
+        "Kind": "UNIT",
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "GraphQlDsUserTable",
             "Name"
           ]
         }
@@ -817,7 +1459,7 @@
         },
         "TypeName": "Mutation",
         "FieldName": "createUser",
-        "RequestMappingTemplate": "#set( $args  = $ctx.args.input )\n#set($argsWithOwner = $args.put(\"owner\", ${context.identity.username}))\n\n{\n  \"version\": \"2017-02-28\",\n  \"operation\": \"PutItem\",\n  \"key\": {\n    \"id\": #if($ctx.args.input.id) $util.dynamodb.toDynamoDBJson($ctx.args.input.id) #else $util.dynamodb.toDynamoDBJson($util.autoId()) #end,\n  },\n  \"attributeValues\" : $util.dynamodb.toMapValuesJson($args),\n  \"condition\": {\n    \"expression\": \"attribute_not_exists(#id)\",\n    \"expressionNames\": {\n      \"#id\": \"id\",\n    },\n  },\n}",
+        "RequestMappingTemplate": "#set( $args  = $ctx.args.input )\n#set($argsWithOwner = $args.put(\"owner\", ${context.args.input.id}))\n\n{\n  \"version\": \"2017-02-28\",\n  \"operation\": \"PutItem\",\n  \"key\": {\n    \"id\": #if($ctx.args.input.id) $util.dynamodb.toDynamoDBJson($ctx.args.input.id) #else $util.dynamodb.toDynamoDBJson($util.autoId()) #end,\n  },\n  \"attributeValues\" : $util.dynamodb.toMapValuesJson($args),\n  \"condition\": {\n    \"expression\": \"attribute_not_exists(#id)\",\n    \"expressionNames\": {\n      \"#id\": \"id\",\n    },\n  },\n}",
         "ResponseMappingTemplate": "$util.toJson($ctx.result)",
         "Kind": "UNIT",
         "DataSourceName": {
@@ -840,12 +1482,33 @@
         },
         "TypeName": "Mutation",
         "FieldName": "updateUserSettings",
-        "RequestMappingTemplate": "{\n  \"version\": \"2017-02-28\",\n  \"operation\": \"UpdateItem\",\n  \"key\": {\n    \"id\": $util.dynamodb.toDynamoDBJson($ctx.args.input.id)\n  },\n\n  ## Set up some space to keep track of things we're updating **\n  #set( $expNames  = {} )\n  #set( $expValues = {} )\n  #set( $expSet = {} )\n  #set( $expAdd = {} )\n  #set( $expRemove = [] )\n\n  ## Iterate through each argument, skipping keys **\n  #foreach( $entry in $util.map.copyAndRemoveAllKeys($ctx.args.input, [\"id\"]).entrySet() )\n    #if( $util.isNull($entry.value) )\n      ## If the argument is set to \"null\", then remove that attribute from the item in DynamoDB **\n\n      #set( $discard = ${expRemove.add(\"#${entry.key}\")} )\n      $!{expNames.put(\"#${entry.key}\", \"${entry.key}\")}\n    #else\n      ## Otherwise set (or update) the attribute on the item in DynamoDB **\n\n      $!{expSet.put(\"#${entry.key}\", \":${entry.key}\")}\n      $!{expNames.put(\"#${entry.key}\", \"${entry.key}\")}\n      $!{expValues.put(\":${entry.key}\", $util.dynamodb.toDynamoDB($entry.value))}\n    #end\n  #end\n\n  ## Start building the update expression, starting with attributes we're going to SET **\n  #set( $expression = \"\" )\n  #if( !${expSet.isEmpty()} )\n    #set( $expression = \"SET\" )\n    #foreach( $entry in $expSet.entrySet() )\n      #set( $expression = \"${expression} ${entry.key} = ${entry.value}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Continue building the update expression, adding attributes we're going to ADD **\n  #if( !${expAdd.isEmpty()} )\n    #set( $expression = \"${expression} ADD\" )\n    #foreach( $entry in $expAdd.entrySet() )\n      #set( $expression = \"${expression} ${entry.key} ${entry.value}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Continue building the update expression, adding attributes we're going to REMOVE **\n  #if( !${expRemove.isEmpty()} )\n    #set( $expression = \"${expression} REMOVE\" )\n\n    #foreach( $entry in $expRemove )\n      #set( $expression = \"${expression} ${entry}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Finally, write the update expression into the document, along with any expressionNames and expressionValues **\n  \"update\": {\n    \"expression\": \"${expression}\",\n    #if( !${expNames.isEmpty()} )\n      \"expressionNames\": $utils.toJson($expNames),\n    #end\n    #if( !${expValues.isEmpty()} )\n      \"expressionValues\": $utils.toJson($expValues),\n    #end\n  },\n   \"condition\" : {\n      \"expression\": \"contains(#canAccess, :expectedOwner)\",\n        \"expressionNames\": {\n          \"#canAccess\": \"canAccess\"\n      },\n      \"expressionValues\": {\n        \":expectedOwner\": { \"S\": \"${context.identity.username}\" },\n      }\n  }\n}",
+        "RequestMappingTemplate": "#set( $args  = $ctx.args.input )\n#set($argsWithOwner = $args.put(\"owner\", ${context.args.input.id}))\n\n{\n  \"version\": \"2017-02-28\",\n  \"operation\": \"UpdateItem\",\n  \"key\": {\n    \"id\": $util.dynamodb.toDynamoDBJson($ctx.args.input.id)\n  },\n\n  ## Set up some space to keep track of things we're updating **\n  #set( $expNames  = {} )\n  #set( $expValues = {} )\n  #set( $expSet = {} )\n  #set( $expAdd = {} )\n  #set( $expRemove = [] )\n\n  ## Iterate through each argument, skipping keys **\n  #foreach( $entry in $util.map.copyAndRemoveAllKeys($args, [\"id\"]).entrySet() )\n    #if( $util.isNull($entry.value) )\n      ## If the argument is set to \"null\", then remove that attribute from the item in DynamoDB **\n\n      #set( $discard = ${expRemove.add(\"#${entry.key}\")} )\n      $!{expNames.put(\"#${entry.key}\", \"${entry.key}\")}\n    #else\n      ## Otherwise set (or update) the attribute on the item in DynamoDB **\n\n      $!{expSet.put(\"#${entry.key}\", \":${entry.key}\")}\n      $!{expNames.put(\"#${entry.key}\", \"${entry.key}\")}\n      $!{expValues.put(\":${entry.key}\", $util.dynamodb.toDynamoDB($entry.value))}\n    #end\n  #end\n\n  ## Start building the update expression, starting with attributes we're going to SET **\n  #set( $expression = \"\" )\n  #if( !${expSet.isEmpty()} )\n    #set( $expression = \"SET\" )\n    #foreach( $entry in $expSet.entrySet() )\n      #set( $expression = \"${expression} ${entry.key} = ${entry.value}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Continue building the update expression, adding attributes we're going to ADD **\n  #if( !${expAdd.isEmpty()} )\n    #set( $expression = \"${expression} ADD\" )\n    #foreach( $entry in $expAdd.entrySet() )\n      #set( $expression = \"${expression} ${entry.key} ${entry.value}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Continue building the update expression, adding attributes we're going to REMOVE **\n  #if( !${expRemove.isEmpty()} )\n    #set( $expression = \"${expression} REMOVE\" )\n\n    #foreach( $entry in $expRemove )\n      #set( $expression = \"${expression} ${entry}\" )\n      #if ( $foreach.hasNext )\n        #set( $expression = \"${expression},\" )\n      #end\n    #end\n  #end\n\n  ## Finally, write the update expression into the document, along with any expressionNames and expressionValues **\n  \"update\": {\n    \"expression\": \"${expression}\",\n    #if( !${expNames.isEmpty()} )\n      \"expressionNames\": $utils.toJson($expNames),\n    #end\n    #if( !${expValues.isEmpty()} )\n      \"expressionValues\": $utils.toJson($expValues),\n    #end\n  },\n   \"condition\" : {\n      \"expression\": \"contains(#canAccess, :expectedOwner)\",\n        \"expressionNames\": {\n          \"#canAccess\": \"canAccess\"\n      },\n      \"expressionValues\": {\n        \":expectedOwner\": { \"S\": \"${context.identity.username}\" },\n      }\n  }\n}",
         "ResponseMappingTemplate": "$util.toJson($ctx.result)",
         "Kind": "UNIT",
         "DataSourceName": {
           "Fn::GetAtt": [
             "GraphQlDsUserTable",
+            "Name"
+          ]
+        }
+      }
+    },
+    "GraphQlResolverUsersubscribed": {
+      "Type": "AWS::AppSync::Resolver",
+      "DependsOn": "GraphQlSchema",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "TypeName": "User",
+        "FieldName": "subscribed",
+        "Kind": "UNIT",
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "GraphQlDsIsUserSubscribedLambda",
             "Name"
           ]
         }
@@ -863,12 +1526,91 @@
         },
         "TypeName": "Mutation",
         "FieldName": "sendEmail",
-        "RequestMappingTemplate": "  {\n    \"operation\": \"Invoke\",\n    \"version\" : \"2018-05-29\",\n    \"payload\": {\n        \"order\": $utils.toJson($context.arguments.input)\n    }\n  }",
+        "RequestMappingTemplate": "$util.qr($ctx.stash.put(\"sub\", $ctx.identity.sub))\n{}",
         "ResponseMappingTemplate": "$util.toJson($ctx.result)",
+        "Kind": "PIPELINE",
+        "PipelineConfig": {
+          "Functions": [
+            {
+              "Fn::GetAtt": [
+                "GraphQlFunctionConfigurationGetUserByCognitoSubFunction",
+                "FunctionId"
+              ]
+            },
+            {
+              "Fn::GetAtt": [
+                "GraphQlFunctionConfigurationisUserSubscribedFunction",
+                "FunctionId"
+              ]
+            },
+            {
+              "Fn::GetAtt": [
+                "GraphQlFunctionConfigurationsendEmailLambdaFunction",
+                "FunctionId"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "GraphQlResolverMutationstartCheckoutSession": {
+      "Type": "AWS::AppSync::Resolver",
+      "DependsOn": "GraphQlSchema",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "TypeName": "Mutation",
+        "FieldName": "startCheckoutSession",
         "Kind": "UNIT",
         "DataSourceName": {
           "Fn::GetAtt": [
-            "GraphQlDsSendEmailLambda",
+            "GraphQlDsCheckoutSessionLambda",
+            "Name"
+          ]
+        }
+      }
+    },
+    "GraphQlResolverMutationcompleteCheckoutSession": {
+      "Type": "AWS::AppSync::Resolver",
+      "DependsOn": "GraphQlSchema",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "TypeName": "Mutation",
+        "FieldName": "completeCheckoutSession",
+        "Kind": "UNIT",
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "GraphQlDsCompleteCheckoutLambda",
+            "Name"
+          ]
+        }
+      }
+    },
+    "GraphQlResolverMutationcreatePortalSession": {
+      "Type": "AWS::AppSync::Resolver",
+      "DependsOn": "GraphQlSchema",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "TypeName": "Mutation",
+        "FieldName": "createPortalSession",
+        "Kind": "UNIT",
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "GraphQlDsCreatePortalSessionLambda",
             "Name"
           ]
         }
@@ -881,10 +1623,48 @@
         "Ref": "ServerlessDeploymentBucket"
       }
     },
+    "AwsAppsyncLayerLambdaLayerQualifiedArn": {
+      "Description": "Current Lambda layer version",
+      "Value": {
+        "Ref": "AwsAppsyncLayerLambdaLayera52d9b89d04d0317b2bca8dfac6b37e104f888f0"
+      }
+    },
+    "AwsAppsyncLayerLambdaLayerHash": {
+      "Description": "Current Lambda layer hash",
+      "Value": "a52d9b89d04d0317b2bca8dfac6b37e104f888f0"
+    },
+    "AwsAppsyncLayerLambdaLayerS3Key": {
+      "Description": "Current Lambda layer S3Key",
+      "Value": "serverless/potluck-appsync/Dev/1615584040891-2021-03-12T21:20:40.891Z/awsAppsyncLayer.zip"
+    },
     "SendEmailLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "SendEmailLambdaVersionSMY62mMjF29muA8bIiUdRthBCCkLcyIS1toj9uABsrg"
+        "Ref": "SendEmailLambdaVersionjjgC6aueF9RXUDZauiur2DYdQA173a5HRiiAABHh8I"
+      }
+    },
+    "CheckoutSessionLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "CheckoutSessionLambdaVersionLl6rgJwyhlSYBmJlc5iWW9McSjS3FjlG2dOUT23hGM"
+      }
+    },
+    "CompleteCheckoutLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "CompleteCheckoutLambdaVersionSnO91BZMUycv15q0tzPoMzJ9lh6AdF2A4Pgx77Y8H0s"
+      }
+    },
+    "CreatePortalSessionLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "CreatePortalSessionLambdaVersion8jUX4QeHbSzyGYMf53r4KQ2jBZgfz3JoMyplwIKSyBY"
+      }
+    },
+    "IsUserSubscribedLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "IsUserSubscribedLambdaVersion4t3786buLAtoRD9MMzKSaK4gSI8iDVE71eVsFloVA"
       }
     },
     "GraphQlApiId": {

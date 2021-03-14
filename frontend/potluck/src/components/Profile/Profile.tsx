@@ -19,16 +19,19 @@ export default function ({ business }: { business?: Business }) {
   function renderStats() {
     const stats = getBusinessStats();
 
-    return stats?.map((stat) => (
-      <div className="profile__topbar__blurb">
-        <Typography gutterBottom variant="h5">
-          {stat.count}
-        </Typography>
-        <Typography gutterBottom variant="h6">
-          {stat.title === "flower" ? "strains" : stat.title}
-        </Typography>
-      </div>
-    ));
+    return stats?.map(
+      (stat) =>
+        stat.title !== "description" && (
+          <div className="profile__topbar__blurb">
+            <Typography gutterBottom variant="h5">
+              {stat.count}
+            </Typography>
+            <Typography gutterBottom variant="h6">
+              {stat.title === "flower" ? "strains" : stat.title}
+            </Typography>
+          </div>
+        )
+    );
   }
 
   return (
