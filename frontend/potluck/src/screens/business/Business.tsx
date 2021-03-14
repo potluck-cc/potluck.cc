@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Profile, Tabs, Menu, Order, Questions } from "components";
-import { useLocation, useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { Business } from "types";
 import Button from "@material-ui/core/Button";
 import ProfileDialog from "./ProfileDialog";
@@ -16,6 +16,7 @@ export default function () {
   const ctx = useContext(appcontext);
   const params = useParams();
   const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     init();
@@ -25,11 +26,11 @@ export default function () {
     if (location.state) {
       // @ts-ignore
       setBusiness(location.state.business as Business);
-    } else {
-      // @ts-ignore
-      const business = await fetchBusinessWithSlug(params?.slug);
-      setBusiness(business);
     }
+
+    // @ts-ignore
+    const business = await fetchBusinessWithSlug(params?.slug);
+    setBusiness(business);
   }
 
   function isBusiness(cognitoUser: any) {
@@ -48,30 +49,38 @@ export default function () {
     concentrates?: string;
     description?: string;
   }) {
-    const updatedBusiness = { ...business };
+    const businessCopy = { ...business };
 
-    if (updatedBusiness) {
-      updatedBusiness.menu = [];
+    if (businessCopy) {
+      businessCopy.menu = [];
       //@ts-ignore
       Object.keys(items).map((key) => {
-        //@ts-ignore
-        const menuStr = items[key];
+        if (key !== "description") {
+          //@ts-ignore
+          const menuStr = items[key];
 
-        if (menuStr) {
-          updatedBusiness?.menu?.push({
-            title: key,
-            items: menuStr.split(" / "),
-          });
+          if (menuStr) {
+            businessCopy?.menu?.push({
+              title: key,
+              items: menuStr.split(" / "),
+            });
+          }
         }
       });
 
-      updateBusinessAPI({
-        id: updatedBusiness.id ?? "",
-        description: updatedBusiness.description ?? "",
-        menu: updatedBusiness.menu,
-      });
+      const updatedBusiness = {
+        ...businessCopy,
+        id: businessCopy.id ?? "",
+        description: items.description ?? "",
+      };
 
+      //@ts-ignore
+      updateBusinessAPI(updatedBusiness);
       setBusiness(updatedBusiness as Business);
+      //@ts-ignore
+      history.location.state = {
+        business: updatedBusiness,
+      };
     }
   }
 

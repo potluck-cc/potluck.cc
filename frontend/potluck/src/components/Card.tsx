@@ -51,7 +51,7 @@ export default function MediaCard({ business }: { business: Business }) {
             {title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {description}
+            <div dangerouslySetInnerHTML={{ __html: description }} />
           </Typography>
         </CardContent>
       </CardActionArea>

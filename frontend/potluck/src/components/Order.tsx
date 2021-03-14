@@ -362,7 +362,12 @@ export default function ({
 
       {error && <Typography style={{ color: "red" }}>{error}</Typography>}
 
-      <Button variant="contained" color="primary" onClick={handleSubmit}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSubmit}
+        style={{ width: "100%" }}
+      >
         Submit
       </Button>
     </form>

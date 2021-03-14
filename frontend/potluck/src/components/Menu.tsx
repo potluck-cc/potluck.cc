@@ -12,27 +12,7 @@ export default function ({
   function renderMenu() {
     return data?.map((d) => {
       return (
-        <div
-          style={{
-            textAlign: "center",
-            padding: 15,
-            width: 420,
-          }}
-        >
-          {description && (
-            <>
-              <Typography
-                gutterBottom
-                style={{
-                  fontFamily: "Roboto",
-                  fontSize: "1.3rem",
-                  lineHeight: "35px",
-                }}
-              >
-                {description}
-              </Typography>
-            </>
-          )}
+        <div>
           <Typography gutterBottom variant="h3" component="h2">
             {d.title}
           </Typography>
@@ -44,5 +24,26 @@ export default function ({
     });
   }
 
-  return <div>{renderMenu()}</div>;
+  return (
+    <div
+      style={{
+        textAlign: "center",
+        padding: 15,
+        width: 420,
+      }}
+    >
+      {renderMenu()}
+
+      {description && description.length && (
+        <>
+          <Typography gutterBottom variant="h3" component="h2">
+            About
+          </Typography>
+          <Typography gutterBottom variant="h6">
+            <div dangerouslySetInnerHTML={{ __html: description }} />
+          </Typography>
+        </>
+      )}
+    </div>
+  );
 }

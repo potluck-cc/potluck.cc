@@ -41,26 +41,26 @@ function App() {
   }, []);
 
   async function init() {
-    if (isInitialized) {
-      isInitialized(false);
-    }
+    try {
+      const user = await AmplifyAuth.currentAuthenticatedUser();
 
-    const user = await AmplifyAuth.currentAuthenticatedUser();
+      if (user) {
+        setUser(user);
+        isAuthenticated(true);
+        const dynamoUser = await getUser();
 
-    if (user) {
-      setUser(user);
-      isAuthenticated(true);
-      const dynamoUser = await getUser();
-
-      if (dynamoUser) {
-        isSubscribed(dynamoUser.subscribed);
-        setdynamoUser(dynamoUser);
+        if (dynamoUser) {
+          isSubscribed(dynamoUser.subscribed);
+          setdynamoUser(dynamoUser);
+        }
+      } else {
+        isAuthenticated(false);
       }
-    } else {
-      isAuthenticated(false);
-    }
 
-    isInitialized(true);
+      isInitialized(true);
+    } catch {
+      isInitialized(true);
+    }
   }
 
   function renderAppEntryDialog() {
