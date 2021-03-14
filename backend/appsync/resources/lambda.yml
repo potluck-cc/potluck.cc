@@ -7,9 +7,83 @@ SendEmail:
   environment:
     SENDGRID_API_KEY: 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
   tags:
-    ByBlk: ByBlk
+    Potluck: Potluck
   package:
     include:
       - dist/**
     artifact: ./dist/sendEmail.zip
+    individually: true
+
+CheckoutSession:
+  handler: index.handler
+  name: CheckoutSession-${self:custom.env}
+  description: This lambda invokes the invite business step function
+  runtime: nodejs12.x
+  timeout: 30
+  maximumRetryAttempts: 2
+  environment:
+    STRIPE_API_KEY: sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP
+  tags:
+    Potluck: Potluck
+  package:
+    include:
+      - dist/**
+    artifact: ./dist/checkoutSession.zip
+    individually: true
+
+CompleteCheckout:
+  handler: index.handler
+  name: CompleteCheckout-${self:custom.env}
+  description: This lambda invokes the invite business step function
+  runtime: nodejs12.x
+  timeout: 30
+  maximumRetryAttempts: 2
+  layers:
+    - arn:aws:lambda:${self:custom.region}:185477522948:layer:AwsAppsyncLayer-${self:custom.env}:2
+  environment:
+    STRIPE_API_KEY: sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP
+  tags:
+    Potluck: Potluck
+  package:
+    include:
+      - dist/**
+    artifact: ./dist/completeCheckout.zip
+    individually: true
+
+CreatePortalSession:
+  handler: index.handler
+  name: CreatePortalSession-${self:custom.env}
+  description: This lambda invokes the invite business step function
+  runtime: nodejs12.x
+  timeout: 30
+  maximumRetryAttempts: 2
+  role: arn:aws:iam::185477522948:role/appsync-lambda-role
+  environment:
+    STRIPE_API_KEY: sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP
+  tags:
+    Potluck: Potluck
+  package:
+    include:
+      - dist/**
+    artifact: ./dist/CreatePortalSession.zip
+    individually: true
+
+IsUserSubscribed:
+  handler: index.handler
+  name: IsUserSubscribed-${self:custom.env}
+  description: This lambda invokes the invite business step function
+  runtime: nodejs12.x
+  timeout: 30
+  maximumRetryAttempts: 2
+  role: arn:aws:iam::185477522948:role/appsync-lambda-role
+  layers:
+    - arn:aws:lambda:${self:custom.region}:185477522948:layer:AwsAppsyncLayer-${self:custom.env}:2
+  environment:
+    STRIPE_API_KEY: sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP
+  tags:
+    Potluck: Potluck
+  package:
+    include:
+      - dist/**
+    artifact: ./dist/IsUserSubscribed.zip
     individually: true

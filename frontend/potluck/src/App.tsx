@@ -1,13 +1,15 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { Topbar } from "components";
+import { Topbar, GenericDialog } from "components";
 import { Discover } from "screens/discover";
 import { Business } from "screens/business";
 import { Auth } from "screens/auth";
 import { Subscribe } from "screens/subscribe";
+import { Success } from "screens/stripe";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Amplify, { Auth as AmplifyAuth } from "aws-amplify";
 import AppContext from "./appcontext";
+import { getUser, User } from "graphql/queries";
 
 Amplify.configure({
   Auth: {
@@ -31,21 +33,67 @@ function App() {
   const [authenticated, isAuthenticated] = useState(false);
   const [subscribed, isSubscribed] = useState(false);
   const [user, setUser] = useState(null);
+  const [dynamoUser, setdynamoUser] = useState<User | null>(null);
+  const [initialized, isInitialized] = useState(false);
 
   useEffect(() => {
     init();
   }, []);
 
   async function init() {
+    if (isInitialized) {
+      isInitialized(false);
+    }
+
     const user = await AmplifyAuth.currentAuthenticatedUser();
 
     if (user) {
       setUser(user);
       isAuthenticated(true);
-      // isInitializing(false);
+      const dynamoUser = await getUser();
+
+      if (dynamoUser) {
+        isSubscribed(dynamoUser.subscribed);
+        setdynamoUser(dynamoUser);
+      }
     } else {
       isAuthenticated(false);
-      // isInitializing(false);
+    }
+
+    isInitialized(true);
+  }
+
+  function renderAppEntryDialog() {
+    if (initialized) {
+      if (!user) {
+        return (
+          <GenericDialog
+            title="Age"
+            content="You need to be 21 to use this site."
+            onClose={() =>
+              window.location.replace(
+                "https://www.google.com/search?q=nj+marijuana+laws"
+              )
+            }
+            action={{
+              title: "I'm 21+",
+            }}
+          />
+        );
+      }
+
+      if (dynamoUser && dynamoUser.subscribed === null) {
+        return (
+          <GenericDialog
+            title="Error"
+            content="We had trouble loading your subscrition details from stripe. Please try refreshing."
+            action={{
+              title: "Refresh",
+              onClick: () => window.location.reload(),
+            }}
+          />
+        );
+      }
     }
   }
 
@@ -83,6 +131,7 @@ function App() {
         subscribed,
         isSubscribed,
         user,
+        dynamoUser,
       }}
     >
       <ThemeProvider theme={theme}>
@@ -93,6 +142,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={Discover} />
               <Route exact path="/:slug" component={Business} />
+              <Route exact path="/success/:sessionId" component={Success} />
             </Switch>
           </Router>
         </div>
@@ -100,6 +150,8 @@ function App() {
         <Auth />
 
         <Subscribe />
+
+        {renderAppEntryDialog()}
       </ThemeProvider>
     </AppContext.Provider>
   );

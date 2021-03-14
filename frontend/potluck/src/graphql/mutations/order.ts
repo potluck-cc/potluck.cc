@@ -20,11 +20,16 @@ export const sendEmailDoc = gql`
 `;
 
 export async function sendEmail(input: SendEmailInput) {
-  const user = await API.graphql(
-    graphqlOperation(sendEmailDoc, {
-      input,
-    })
-  );
+  try {
+    const res = await API.graphql(
+      graphqlOperation(sendEmailDoc, {
+        input,
+      })
+    );
 
-  return user;
+    //@ts-ignore
+    return res.data.sendEmail;
+  } catch (e) {
+    return e;
+  }
 }

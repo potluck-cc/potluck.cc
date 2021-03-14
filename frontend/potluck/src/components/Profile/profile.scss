@@ -18,7 +18,11 @@
       justify-content: center;
       flex-direction: column;
       text-align: center;
-      margin-left: 24px;
+
+      &:not(:first-of-type) {
+        margin-left: 24px;
+      }
+
     }
   }
 

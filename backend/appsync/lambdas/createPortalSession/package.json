@@ -1,0 +1,28 @@
+{
+  "name": "createportalsession",
+  "version": "1.0.0",
+  "description": "Subscription",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "local": "bash utils/test.sh",
+    "zipit": "bash utils/zipit.sh",
+    "package": "tsc && npm run zipit",
+    "deploy": "aws lambda update-function-code --region us-east-1 --profile potluck --function-name CreatePortalSession-Dev --zip-file fileb://createPortalSession.zip"
+  },
+  "author": "Ashton Morris",
+  "license": "ISC",
+  "dependencies": {
+    "isomorphic-fetch": "^3.0.0",
+    "stripe": "^8.138.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.67",
+    "@types/node": "^14.14.14",
+    "aws-sdk": "^2.817.0",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}

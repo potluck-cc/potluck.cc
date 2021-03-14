@@ -95,7 +95,7 @@ export default function ({
   const [selectedMerch, setSelectedMerch] = useState<string[]>([]);
   const [selectedGift, setSelectedGift] = useState<string[]>([]);
   const [state, setState] = useState(defaultState);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [submissionSent, setSubmissionSent] = useState(false);
 
   const handleChange = (event: any, type: "merch" | "gift") => {
@@ -113,7 +113,7 @@ export default function ({
     }));
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (isValid()) {
       if (businessEmail) {
         const formValues: Order = {
@@ -123,14 +123,18 @@ export default function ({
           businessEmail: businessEmail,
         };
 
-        sendEmail(formValues);
+        const res = await sendEmail(formValues);
 
-        setState(defaultState);
+        if (typeof res === "boolean" && res) {
+          setState(defaultState);
 
-        setSubmissionSent(true);
+          setSubmissionSent(true);
+        } else {
+          setError("Something went wrong. Please try again.");
+        }
       }
     } else {
-      setError(true);
+      setError("All fields need to be filled out.");
     }
   }
 
@@ -211,7 +215,7 @@ export default function ({
           variant="outlined"
           placeholder="First Name"
           onChange={(event) => updateForm("firstName", event.target.value)}
-          error={error}
+          error={!!error}
         />
         <TextField
           className={classes.input}
@@ -219,7 +223,7 @@ export default function ({
           variant="outlined"
           placeholder="Last Name"
           onChange={(event) => updateForm("lastName", event.target.value)}
-          error={error}
+          error={!!error}
         />
       </div>
 
@@ -230,7 +234,7 @@ export default function ({
           variant="outlined"
           placeholder="Address"
           onChange={(event) => updateForm("address", event.target.value)}
-          error={error}
+          error={!!error}
         />
         <TextField
           className={classes.input}
@@ -238,7 +242,7 @@ export default function ({
           variant="outlined"
           placeholder="City"
           onChange={(event) => updateForm("city", event.target.value)}
-          error={error}
+          error={!!error}
         />
       </div>
 
@@ -249,7 +253,7 @@ export default function ({
           variant="outlined"
           placeholder="Zip"
           onChange={(event) => updateForm("zip", event.target.value)}
-          error={error}
+          error={!!error}
         />
         <TextField
           className={classes.input}
@@ -257,7 +261,7 @@ export default function ({
           variant="outlined"
           placeholder="Phone"
           onChange={(event) => updateForm("phone", event.target.value)}
-          error={error}
+          error={!!error}
         />
       </div>
 
@@ -282,7 +286,7 @@ export default function ({
             </div>
           )}
           MenuProps={MenuProps}
-          error={error}
+          error={!!error}
         >
           {merch.map((name) => (
             <MenuItem key={name} value={name}>
@@ -313,7 +317,7 @@ export default function ({
             </div>
           )}
           MenuProps={MenuProps}
-          error={error}
+          error={!!error}
         >
           {menu?.map((gift) => (
             <MenuItem key={gift.title} value={gift.title}>
@@ -330,7 +334,7 @@ export default function ({
           onChange={(event) =>
             updateForm("preferredStrain", event.target.value)
           }
-          error={error}
+          error={!!error}
           style={{ width: "100%" }}
         />
       </div>
@@ -340,7 +344,7 @@ export default function ({
           label="Quantity"
           variant="outlined"
           onChange={(event) => updateForm("quantity", event.target.value)}
-          error={error}
+          error={!!error}
           style={{ width: "100%" }}
         />
       </div>
@@ -351,10 +355,12 @@ export default function ({
           variant="outlined"
           placeholder="Cash, Cash App"
           onChange={(event) => updateForm("paymentMethod", event.target.value)}
-          error={error}
+          error={!!error}
           style={{ width: "100%" }}
         />
       </div>
+
+      {error && <Typography style={{ color: "red" }}>{error}</Typography>}
 
       <Button variant="contained" color="primary" onClick={handleSubmit}>
         Submit

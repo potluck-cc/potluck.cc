@@ -17,8 +17,6 @@ export default function () {
   const params = useParams();
   const location = useLocation();
 
-  console.log(business);
-
   useEffect(() => {
     init();
   }, []);
@@ -34,11 +32,13 @@ export default function () {
     }
   }
 
-  function isBusiness(user: any) {
-    if (user) {
-      return user?.signInUserSession?.accessToken?.payload[
-        "cognito:groups"
-      ]?.includes("Business");
+  function isBusiness(cognitoUser: any) {
+    if (cognitoUser) {
+      return (
+        cognitoUser?.signInUserSession?.accessToken?.payload[
+          "cognito:groups"
+        ]?.includes("Business") && cognitoUser.attributes.sub === business?.id
+      );
     } else return false;
   }
 

@@ -4,7 +4,9 @@ schema {
 }
 
 type Query {
-  getUserByIdentity(id: ID!): User @aws_cognito_user_pools
+  getUserByIdentity: User @aws_cognito_user_pools
+
+  getUserById(id: ID!): User @aws_iam
 
   getBusinessesWithOptions(
     region: String!
@@ -31,16 +33,29 @@ type Query {
 
 type Mutation {
   createUser(input: UserInput!): User @aws_iam
+
+  updateUser(input: UserInput!): User @aws_iam
+
   updateUserSettings(input: SettingsInput!): User @aws_cognito_user_pools
+
   createBusiness(input: CreateBusinessInput!): Business
     @aws_iam
     @aws_cognito_user_pools
     @aws_auth(cognito_groups: ["Admin"])
+
   updateBusiness(input: EditBusinessInput!): Business
     @aws_iam
     @aws_cognito_user_pools
     @aws_auth(cognito_groups: ["Admin, Business"])
+
   sendEmail(input: SendEmailInput!): Boolean @aws_cognito_user_pools
+
+  startCheckoutSession(priceId: String!, redirect_url: String): String!
+    @aws_cognito_user_pools
+
+  completeCheckoutSession(sessionId: String!): String! @aws_cognito_user_pools
+
+  createPortalSession(customerId: String!): String! @aws_cognito_user_pools
 }
 
 input SendEmailInput {
@@ -58,17 +73,19 @@ input SendEmailInput {
   quantity: String!
 }
 
-type User @aws_cognito_user_pools {
+type User @aws_cognito_user_pools @aws_iam {
   id: ID!
+  stripeCustomerId: String
+  subscribed: Boolean # isUserSubscribedLambda
   settings: UserSettings
 }
 
 input UserInput {
   id: ID!
-  settings: SettingsInput
+  stripeCustomerId: String
 }
 
-type UserSettings @aws_cognito_user_pools {
+type UserSettings @aws_cognito_user_pools @aws_iam {
   darkMode: Boolean
   favorites: [Business]
 }

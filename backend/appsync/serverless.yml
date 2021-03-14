@@ -12,6 +12,15 @@ provider:
   tags:
     Potluck: Potluck
 
+layers:
+  awsAppsyncLayer:
+    path: layers/awsAppsyncLayer/dist/
+    name: AwsAppsyncLayer-${self:custom.env}
+    retain: true
+    description: Node module layer for aws-appsync since its 10mb
+    compatibleRuntimes:
+      - nodejs12.x
+
 plugins:
   - serverless-appsync-plugin
 

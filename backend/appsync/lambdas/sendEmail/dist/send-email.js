@@ -18,7 +18,7 @@ async function sendEmail({ firstName, lastName, address, city, zip, phone, busin
       Name: ${firstName} ${lastName}
       Address: ${address}, ${city} ${zip}
       Phone: ${phone}
-      Merch: ${merch.join(",")} terra cotta pots
+      Merch: ${merch.join(",")} terra cotta pot
       Suggested Gifts: ${gifts.join(",")}
       Preferred Strain: ${preferredStrain}
       Quantity: ${quantity}
@@ -31,9 +31,10 @@ async function sendEmail({ firstName, lastName, address, city, zip, phone, busin
         };
         try {
             await mail_1.default.send(newMessage);
+            return true;
         }
         catch (e) {
-            console.log(e);
+            throw new Error(e);
         }
     }
     else

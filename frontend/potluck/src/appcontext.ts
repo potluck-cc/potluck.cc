@@ -1,3 +1,4 @@
+import { User } from "graphql/queries";
 import { createContext, Dispatch } from "react";
 
 export interface AppContextInterface {
@@ -10,6 +11,7 @@ export interface AppContextInterface {
   subscribed: boolean;
   isSubscribed: Dispatch<React.SetStateAction<boolean>>;
   user: null | any;
+  dynamoUser: null | User;
 }
 
 export default createContext<AppContextInterface | null>(null);

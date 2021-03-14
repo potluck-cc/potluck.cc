@@ -1,3 +1,6 @@
+#set( $args  = $ctx.args.input )
+#set($argsWithOwner = $args.put("owner", ${context.args.input.id}))
+
 {
   "version": "2017-02-28",
   "operation": "UpdateItem",
@@ -13,7 +16,7 @@
   #set( $expRemove = [] )
 
   ## Iterate through each argument, skipping keys **
-  #foreach( $entry in $util.map.copyAndRemoveAllKeys($ctx.args.input, ["id"]).entrySet() )
+  #foreach( $entry in $util.map.copyAndRemoveAllKeys($args, ["id"]).entrySet() )
     #if( $util.isNull($entry.value) )
       ## If the argument is set to "null", then remove that attribute from the item in DynamoDB **
 

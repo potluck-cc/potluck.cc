@@ -21,7 +21,14 @@ export default function ({
         >
           {description && (
             <>
-              <Typography gutterBottom variant="h5">
+              <Typography
+                gutterBottom
+                style={{
+                  fontFamily: "Roboto",
+                  fontSize: "1.3rem",
+                  lineHeight: "35px",
+                }}
+              >
                 {description}
               </Typography>
             </>
