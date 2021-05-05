@@ -2,14 +2,10 @@ import sgMail from "@sendgrid/mail";
 import { Order } from "./types";
 
 export default async function sendEmail({
-  firstName,
-  lastName,
-  address,
+  name,
   city,
-  zip,
   phone,
   businessEmail,
-  merch,
   gifts,
   paymentMethod,
   preferredStrain,
@@ -18,21 +14,18 @@ export default async function sendEmail({
   if (process.env.SENDGRID_API_KEY) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-    console.log(process.env.SENDGRID_API_KEY);
-
     const newMessage = {
       to: businessEmail,
-      subject: `${firstName} wants some merch!`,
+      subject: `${name} wants some merch!`,
       from: "butler@potluck.cc",
       text: `
-      Hey, there! ${firstName} wants some merch!
+      Hey, there! ${name} wants some merch!
 
-      Name: ${firstName} ${lastName}
-      Address: ${address}, ${city} ${zip}
+      Name: ${name}
+      Address: ${city}
       Phone: ${phone}
-      Merch: ${merch.join(",")} terra cotta pot
       Suggested Gifts: ${gifts.join(",")}
-      Preferred Strain: ${preferredStrain}
+      Preferred Strain: ${preferredStrain.join(",")}
       Quantity: ${quantity}
       Payment Method(s): ${paymentMethod}
 

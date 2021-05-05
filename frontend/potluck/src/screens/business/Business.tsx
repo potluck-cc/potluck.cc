@@ -103,7 +103,7 @@ export default function () {
     <div className="business">
       <Profile business={business} />
 
-      {isBusiness(ctx?.user) && (
+      {isBusiness(ctx?.user) ? (
         <Button
           size="small"
           color="secondary"
@@ -113,9 +113,19 @@ export default function () {
         >
           Edit Profile
         </Button>
+      ) : (
+        <Button
+          size="large"
+          color="primary"
+          variant="contained"
+          style={{ marginBottom: 8 }}
+          onClick={() => updateTabState(tabState === 0 ? 1 : 0)}
+        >
+          {tabState === 0 ? "Order" : "Menu"}
+        </Button>
       )}
 
-      <Tabs onSetValue={updateTabState} />
+      {/* <Tabs onSetValue={updateTabState} /> */}
 
       {renderTab()}
 

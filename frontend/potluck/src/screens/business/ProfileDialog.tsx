@@ -28,9 +28,8 @@ export default function ({
   description,
 }: ProfileDialogProps) {
   const [state, setState] = useState({
-    flower: undefined,
-    edibles: undefined,
-    concentrates: undefined,
+    premiums: undefined,
+    exotics: undefined,
     description,
   });
 

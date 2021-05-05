@@ -24,6 +24,7 @@ export const handler: Handler = async (
         ],
         success_url: `${redirect_url}/success/{CHECKOUT_SESSION_ID}`,
         cancel_url: redirect_url,
+        allow_promotion_codes: true,
       });
 
       return session.id;

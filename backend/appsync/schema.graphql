@@ -48,7 +48,9 @@ type Mutation {
     @aws_cognito_user_pools
     @aws_auth(cognito_groups: ["Admin, Business"])
 
-  sendEmail(input: SendEmailInput!): Boolean @aws_cognito_user_pools
+  sendEmail(input: SendEmailInput!): Boolean
+    @aws_cognito_user_pools
+    @aws_api_key
 
   startCheckoutSession(priceId: String!, redirect_url: String): String!
     @aws_cognito_user_pools
@@ -59,17 +61,13 @@ type Mutation {
 }
 
 input SendEmailInput {
-  firstName: String!
-  lastName: String!
-  address: String!
+  name: String!
   city: String!
-  zip: String!
   phone: String!
   businessEmail: String!
-  merch: [String!]!
+  preferredStrain: [String!]!
   gifts: [String!]!
   paymentMethod: String!
-  preferredStrain: String!
   quantity: String!
 }
 

@@ -10,6 +10,9 @@ import CreditCardIcon from "@material-ui/icons/CreditCard";
 import MailIcon from "@material-ui/icons/Mail";
 import appcontext from "../appcontext";
 import { goToBilling } from "graphql/mutations";
+import { useHistory } from "react-router-dom";
+import InfoIcon from "@material-ui/icons/Info";
+import HomeIcon from "@material-ui/icons/Home";
 
 const useStyles = makeStyles({
   list: {
@@ -26,6 +29,8 @@ export default function TemporaryDrawer({
 }) {
   const ctx = useContext(appcontext);
   const classes = useStyles();
+  const history = useHistory();
+
   const list = () => (
     <div
       className={clsx(classes.list)}
@@ -33,6 +38,18 @@ export default function TemporaryDrawer({
       onClick={closeDrawer}
       onKeyDown={closeDrawer}
     >
+      <ListItem
+        button
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        <ListItemIcon>
+          <HomeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Home" />
+      </ListItem>
+
       <List>
         {ctx?.dynamoUser?.stripeCustomerId && (
           <ListItem
@@ -74,6 +91,18 @@ export default function TemporaryDrawer({
             <MailIcon />
           </ListItemIcon>
           <ListItemText primary="Contact" />
+        </ListItem>
+
+        <ListItem
+          button
+          onClick={() => {
+            history.push("/about/privacy");
+          }}
+        >
+          <ListItemIcon>
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText primary="About & Privacy" />
         </ListItem>
       </List>
     </div>

@@ -5,6 +5,7 @@ import { Business } from "screens/business";
 import { Auth } from "screens/auth";
 import { Subscribe } from "screens/subscribe";
 import { Success } from "screens/stripe";
+import { About } from "screens/about";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Amplify, { Auth as AmplifyAuth } from "aws-amplify";
@@ -22,7 +23,7 @@ Amplify.configure({
       "https://ckjug44esfctxapr76ydza3cmm.appsync-api.us-east-1.amazonaws.com/graphql",
     aws_appsync_region: "us-east-1",
     aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS",
-    aws_appsync_apiKey: "da2-7djdldvmu5gxppwhri6ispd3sa",
+    aws_appsync_apiKey: "da2-lpwo7xf4ijebpkhz7j6tn7bqxe",
   },
 });
 
@@ -31,7 +32,7 @@ function App() {
   const [authDialogActive, setAuthDialogActive] = useState(false);
   const [subscribeDialogActive, setSubscribeDialogActive] = useState(false);
   const [authenticated, isAuthenticated] = useState(false);
-  const [subscribed, isSubscribed] = useState(false);
+  const [subscribed, isSubscribed] = useState(true);
   const [user, setUser] = useState(null);
   const [dynamoUser, setdynamoUser] = useState<User | null>(null);
   const [initialized, isInitialized] = useState(false);
@@ -135,14 +136,14 @@ function App() {
       }}
     >
       <ThemeProvider theme={theme}>
-        <Topbar />
-
         <div style={{ marginTop: 60 }}>
           <Router>
+            <Topbar />
             <Switch>
               <Route exact path="/" component={Discover} />
               <Route exact path="/:slug" component={Business} />
               <Route exact path="/success/:sessionId" component={Success} />
+              <Route exact path="/about/privacy" component={About} />
             </Switch>
           </Router>
         </div>

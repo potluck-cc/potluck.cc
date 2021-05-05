@@ -19,10 +19,21 @@ export default function () {
       </Typography>
       <Typography gutterBottom variant="subtitle1" component="h6">
         Potluck is a virtual cannabis club and referral service that provides a
-        curated list of gift shops selling terracotta clay pots. Subscribed
-        members are allowed to fill out and submit an order form that is sent
-        off to the gift shop. The gift shop may include a free sample or gift of
-        cannabis.
+        curated list of gift shops selling terracotta clay pots.
+      </Typography>
+
+      <Typography gutterBottom variant="subtitle1" component="h6">
+        Customers are allowed to fill out and submit an order form that is sent
+        off to the gift shop.
+      </Typography>
+
+      <Typography>
+        If you're{" "}
+        <b>
+          <i>lucky</i>
+        </b>
+        , the gift shop may include a free sample or gift of cannabis if and/or
+        when they fulfill your order.
       </Typography>
 
       <Typography gutterBottom variant="h4">

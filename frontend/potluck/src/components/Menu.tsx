@@ -29,7 +29,7 @@ export default function ({
       style={{
         textAlign: "center",
         padding: 15,
-        width: 420,
+        maxWidth: 420,
       }}
     >
       {renderMenu()}

@@ -102,16 +102,23 @@ mappingTemplates:
     response: false
 
   ## lambda
-  - dataSource: none
+
+  - dataSource: SendEmailLambda
     type: Mutation
     field: sendEmail
-    request: common/before.vtl
-    response: common/after.vtl
-    kind: PIPELINE
-    functions:
-      - GetUserByCognitoSubFunction
-      - isUserSubscribedFunction
-      - sendEmailLambdaFunction
+    request: false
+    response: false
+
+  # - dataSource: none
+  #   type: Mutation
+  #   field: sendEmail
+  #   request: common/before.vtl
+  #   response: common/after.vtl
+  #   kind: PIPELINE
+  #   functions:
+  #     - GetUserByCognitoSubFunction
+  #     - isUserSubscribedFunction
+  #     - sendEmailLambdaFunction
 
   - dataSource: CheckoutSessionLambda
     type: Mutation
@@ -130,16 +137,16 @@ mappingTemplates:
     response: false
 
   ###functions
-functionConfigurations:
-  - dataSource: UserTable
-    name: "GetUserByCognitoSubFunction"
-    request: mutation/sendEmail/getUser/request.vtl
-    response: mutation/sendEmail/basic-response.vtl
-  - dataSource: IsUserSubscribedLambda
-    name: "isUserSubscribedFunction"
-    request: mutation/sendEmail/isUserSubscribed/request.vtl
-    response: mutation/sendEmail/isUserSubscribed/response.vtl
-  - dataSource: SendEmailLambda
-    name: "sendEmailLambdaFunction"
-    request: mutation/sendEmail/sendEmailFunction/request.vtl
-    response: mutation/sendEmail/basic-response.vtl
+# functionConfigurations:
+#   - dataSource: UserTable
+#     name: "GetUserByCognitoSubFunction"
+#     request: mutation/sendEmail/getUser/request.vtl
+#     response: mutation/sendEmail/basic-response.vtl
+#   - dataSource: IsUserSubscribedLambda
+#     name: "isUserSubscribedFunction"
+#     request: mutation/sendEmail/isUserSubscribed/request.vtl
+#     response: mutation/sendEmail/isUserSubscribed/response.vtl
+#   - dataSource: SendEmailLambda
+#     name: "sendEmailLambdaFunction"
+#     request: mutation/sendEmail/sendEmailFunction/request.vtl
+#     response: mutation/sendEmail/basic-response.vtl

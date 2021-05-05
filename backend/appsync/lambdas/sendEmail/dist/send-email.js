@@ -4,23 +4,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mail_1 = __importDefault(require("@sendgrid/mail"));
-async function sendEmail({ firstName, lastName, address, city, zip, phone, businessEmail, merch, gifts, paymentMethod, preferredStrain, quantity, }) {
+async function sendEmail({ name, city, phone, businessEmail, gifts, paymentMethod, preferredStrain, quantity, }) {
     if (process.env.SENDGRID_API_KEY) {
         mail_1.default.setApiKey(process.env.SENDGRID_API_KEY);
-        console.log(process.env.SENDGRID_API_KEY);
         const newMessage = {
             to: businessEmail,
-            subject: `${firstName} wants some merch!`,
+            subject: `${name} wants some merch!`,
             from: "butler@potluck.cc",
             text: `
-      Hey, there! ${firstName} wants some merch!
+      Hey, there! ${name} wants some merch!
 
-      Name: ${firstName} ${lastName}
-      Address: ${address}, ${city} ${zip}
+      Name: ${name}
+      Address: ${city}
       Phone: ${phone}
-      Merch: ${merch.join(",")} terra cotta pot
       Suggested Gifts: ${gifts.join(",")}
-      Preferred Strain: ${preferredStrain}
+      Preferred Strain: ${preferredStrain.join(",")}
       Quantity: ${quantity}
       Payment Method(s): ${paymentMethod}
 

@@ -1,15 +1,13 @@
 import gql from "graphql-tag";
 import { API, graphqlOperation } from "aws-amplify";
+import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 
 interface SendEmailInput {
-  firstName: string;
-  lastName: string;
-  address: string;
+  name: string;
   city: string;
-  zip: string;
   phone: string;
   businessEmail: string;
-  merch: string[];
+  preferredStrain: string[];
   gifts: string[];
 }
 
@@ -21,11 +19,17 @@ export const sendEmailDoc = gql`
 
 export async function sendEmail(input: SendEmailInput) {
   try {
-    const res = await API.graphql(
-      graphqlOperation(sendEmailDoc, {
-        input,
-      })
-    );
+    // const res = await API.graphql(
+    //   graphqlOperation(sendEmailDoc, {
+    //     input,
+    //   })
+    // );
+
+    const res = await API.graphql({
+      query: sendEmailDoc,
+      variables: { input },
+      authMode: GRAPHQL_AUTH_MODE.API_KEY,
+    });
 
     //@ts-ignore
     return res.data.sendEmail;

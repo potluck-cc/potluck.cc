@@ -11,7 +11,6 @@ export async function startCheckoutSession({ priceId }: { priceId: string }) {
   const res = await API.graphql(
     graphqlOperation(startCheckoutSessionDoc, {
       priceId,
-      redirect_url: "localhost:3000",
     })
   );
 

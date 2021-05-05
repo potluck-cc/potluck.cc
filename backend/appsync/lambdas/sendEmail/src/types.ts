@@ -1,14 +1,10 @@
 export type Order = {
-  firstName: string;
-  lastName: string;
-  address: string;
+  name: string;
   city: string;
-  zip: string;
   phone: string;
   businessEmail: string;
-  merch: string[];
   gifts: string[];
   paymentMethod: string;
-  preferredStrain: string;
+  preferredStrain: string[];
   quantity: string;
 };

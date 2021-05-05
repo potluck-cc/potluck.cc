@@ -8,8 +8,8 @@ export const handler: Handler = async (
   cb: Callback
 ) => {
   console.log(event);
-  if (event.arguments && event.arguments.order) {
-    return await sendEmail(event.order as Order);
+  if (event.arguments && event.arguments.input) {
+    return await sendEmail(event.arguments.input as Order);
   } else if (event.input) {
     return await sendEmail(event.input as Order);
   } else {

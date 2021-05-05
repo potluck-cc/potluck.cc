@@ -231,7 +231,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/potluck-appsync/Dev/1615686362686-2021-03-14T01:46:02.686Z/sendEmail.zip"
+                "S3Key": "serverless/potluck-appsync/Dev/1619142837759-2021-04-23T01:53:57.759Z/sendEmail.zip"
               },
               "FunctionName": "SendEmail-Dev",
               "Handler": "index.handler",
@@ -261,14 +261,14 @@
               "SendEmailLogGroup"
             ]
           },
-          "SendEmailLambdaVersionjjgC6aueF9RXUDZauiur2DYdQA173a5HRiiAABHh8I": {
+          "SendEmailLambdaVersionaiLat1xs47Bte1c1Gg2M29aHtZ8i3CyVinuiosW0g": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "SendEmailLambdaFunction"
               },
-              "CodeSha256": "VJBlaFztWPiqbZUT/c3gDFsHPPZC/13h/yAELACBEBE=",
+              "CodeSha256": "qIv0CG+QywU0Y1CO7cOL/K87mx5KL3TvJQZMnoMz5pc=",
               "Description": "This lambda invokes the invite business step function"
             }
           },
@@ -279,7 +279,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/potluck-appsync/Dev/1615686362686-2021-03-14T01:46:02.686Z/checkoutSession.zip"
+                "S3Key": "serverless/potluck-appsync/Dev/1619142837759-2021-04-23T01:53:57.759Z/checkoutSession.zip"
               },
               "FunctionName": "CheckoutSession-Dev",
               "Handler": "index.handler",
@@ -301,7 +301,7 @@
               ],
               "Environment": {
                 "Variables": {
-                  "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+                  "STRIPE_API_KEY": "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"
                 }
               }
             },
@@ -309,14 +309,14 @@
               "CheckoutSessionLogGroup"
             ]
           },
-          "CheckoutSessionLambdaVersionLl6rgJwyhlSYBmJlc5iWW9McSjS3FjlG2dOUT23hGM": {
+          "CheckoutSessionLambdaVersion0NsS9D27BgHBOZ23DanYLDapH7Os4Pn3vBXypXBpwI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CheckoutSessionLambdaFunction"
               },
-              "CodeSha256": "QI9BI/T+CJKfrCAVXd79jH3DaaIeS4xlR7XkcbaMgJw=",
+              "CodeSha256": "jlu1SE8FM60DCDnf5MAy1sokxiq4olxZdKCzIp1gGG4=",
               "Description": "This lambda invokes the invite business step function"
             }
           },
@@ -327,7 +327,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/potluck-appsync/Dev/1615686362686-2021-03-14T01:46:02.686Z/completeCheckout.zip"
+                "S3Key": "serverless/potluck-appsync/Dev/1619142837759-2021-04-23T01:53:57.759Z/completeCheckout.zip"
               },
               "FunctionName": "CompleteCheckout-Dev",
               "Handler": "index.handler",
@@ -349,7 +349,7 @@
               ],
               "Environment": {
                 "Variables": {
-                  "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+                  "STRIPE_API_KEY": "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"
                 }
               },
               "Layers": [
@@ -360,14 +360,14 @@
               "CompleteCheckoutLogGroup"
             ]
           },
-          "CompleteCheckoutLambdaVersionSnO91BZMUycv15q0tzPoMzJ9lh6AdF2A4Pgx77Y8H0s": {
+          "CompleteCheckoutLambdaVersionCMMry294Ue4aswxboswdF87Rzki8T0FlPl0TpM6AMY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CompleteCheckoutLambdaFunction"
               },
-              "CodeSha256": "VTirm863fRluzr0LPFj2jqBa2FAaKBWog2sTV4F5BfE=",
+              "CodeSha256": "sPE4hshb82JO+QuDvoKzcU0ie2ApwxHPJlyirN7g4cQ=",
               "Description": "This lambda invokes the invite business step function"
             }
           },
@@ -378,7 +378,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/potluck-appsync/Dev/1615686362686-2021-03-14T01:46:02.686Z/CreatePortalSession.zip"
+                "S3Key": "serverless/potluck-appsync/Dev/1619142837759-2021-04-23T01:53:57.759Z/CreatePortalSession.zip"
               },
               "FunctionName": "CreatePortalSession-Dev",
               "Handler": "index.handler",
@@ -395,7 +395,7 @@
               ],
               "Environment": {
                 "Variables": {
-                  "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+                  "STRIPE_API_KEY": "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"
                 }
               }
             },
@@ -403,14 +403,14 @@
               "CreatePortalSessionLogGroup"
             ]
           },
-          "CreatePortalSessionLambdaVersion8jUX4QeHbSzyGYMf53r4KQ2jBZgfz3JoMyplwIKSyBY": {
+          "CreatePortalSessionLambdaVersionASU9o7FdHaoLelWjx4oxu7dPSXiVy3FjV1ef6hO5v0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreatePortalSessionLambdaFunction"
               },
-              "CodeSha256": "CQ1eOc39viaR9H97HWYPX6sspTJNaQv1uWRDrwU/f30=",
+              "CodeSha256": "yOF8XK2hp/qD1WfQ+Lpu1Id4ChttYgLslG8pexlmn4I=",
               "Description": "This lambda invokes the invite business step function"
             }
           },
@@ -421,7 +421,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/potluck-appsync/Dev/1615686362686-2021-03-14T01:46:02.686Z/IsUserSubscribed.zip"
+                "S3Key": "serverless/potluck-appsync/Dev/1619142837759-2021-04-23T01:53:57.759Z/IsUserSubscribed.zip"
               },
               "FunctionName": "IsUserSubscribed-Dev",
               "Handler": "index.handler",
@@ -438,7 +438,7 @@
               ],
               "Environment": {
                 "Variables": {
-                  "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+                  "STRIPE_API_KEY": "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"
                 }
               },
               "Layers": [
@@ -449,14 +449,14 @@
               "IsUserSubscribedLogGroup"
             ]
           },
-          "IsUserSubscribedLambdaVersion4t3786buLAtoRD9MMzKSaK4gSI8iDVE71eVsFloVA": {
+          "IsUserSubscribedLambdaVersiond764i9h5zVHtwSdt6bYNa4Hf6NxzEgETz9elo5ju14": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "IsUserSubscribedLambdaFunction"
               },
-              "CodeSha256": "W831nKcoVdvSpGbe97zFqVutnZumWAWdFvod7SupQM8=",
+              "CodeSha256": "Og7gl4Beklpjlct9NrwYN+qPp2Ue9X8D3uNm8Q4LnTQ=",
               "Description": "This lambda invokes the invite business step function"
             }
           },
@@ -575,13 +575,13 @@
                 ]
               },
               "Description": "Auto-generated api key",
-              "Expires": 1647219600
+              "Expires": 1650675600
             }
           },
           "GraphQlSchema": {
             "Type": "AWS::AppSync::GraphQLSchema",
             "Properties": {
-              "Definition": "schema {\n  query: Query\n  mutation: Mutation\n}\n\ntype Query {\n  getUserByIdentity: User @aws_cognito_user_pools\n\n  getUserById(id: ID!): User @aws_iam\n\n  getBusinessesWithOptions(\n    region: String!\n    csc: String!     filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getFeaturedBusinesses(\n    filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getBusinessByLocationAndSlug(csc: String!, slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  getBusinessBySlug(slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n}\n\ntype Mutation {\n  createUser(input: UserInput!): User @aws_iam\n\n  updateUser(input: UserInput!): User @aws_iam\n\n  updateUserSettings(input: SettingsInput!): User @aws_cognito_user_pools\n\n  createBusiness(input: CreateBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin\"])\n\n  updateBusiness(input: EditBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin, Business\"])\n\n  sendEmail(input: SendEmailInput!): Boolean @aws_cognito_user_pools\n\n  startCheckoutSession(priceId: String!, redirect_url: String): String!\n    @aws_cognito_user_pools\n\n  completeCheckoutSession(sessionId: String!): String! @aws_cognito_user_pools\n\n  createPortalSession(customerId: String!): String! @aws_cognito_user_pools\n}\n\ninput SendEmailInput {\n  firstName: String!\n  lastName: String!\n  address: String!\n  city: String!\n  zip: String!\n  phone: String!\n  businessEmail: String!\n  merch: [String!]!\n  gifts: [String!]!\n  paymentMethod: String!\n  preferredStrain: String!\n  quantity: String!\n}\n\ntype User @aws_cognito_user_pools @aws_iam {\n  id: ID!\n  stripeCustomerId: String\n  subscribed: Boolean   settings: UserSettings\n}\n\ninput UserInput {\n  id: ID!\n  stripeCustomerId: String\n}\n\ntype UserSettings @aws_cognito_user_pools @aws_iam {\n  darkMode: Boolean\n  favorites: [Business]\n}\n\ninput SettingsInput {\n  darkMode: Boolean\n  favorites: [String]\n}\n\nenum State {\n  nj\n}\n\ntype MenuItem @aws_cognito_user_pools @aws_iam @aws_api_key {\n  title: String\n  items: [String]\n}\n\ninput MenuItemInput @aws_cognito_user_pools @aws_iam {\n  title: String\n  items: [String]\n}\n\ntype Business @aws_cognito_user_pools @aws_iam @aws_api_key {\n  id: ID!\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItem]\n}\n\ntype BusinessConnection @aws_iam @aws_cognito_user_pools @aws_api_key {\n  items: [Business]\n  nextToken: String\n}\n\ninput BusinessFilterInput {\n  tags: [TableStringFilterInput]\n  industry: TableStringFilterInput\n}\n\ninput CreateBusinessInput {\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\ninput EditBusinessInput {\n  id: ID\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\n\ninput TableBooleanFilterInput {\n  eq: Boolean\n  ne: Boolean\n}\n\ninput TableFloatFilterInput {\n  between: [Float]\n  contains: Float\n  eq: Float\n  ge: Float\n  gt: Float\n  le: Float\n  lt: Float\n  ne: Float\n  notContains: Float\n}\n\ninput TableIDFilterInput {\n  beginsWith: ID\n  between: [ID]\n  contains: ID\n  eq: ID\n  ge: ID\n  gt: ID\n  le: ID\n  lt: ID\n  ne: ID\n  notContains: ID\n}\n\ninput TableIntFilterInput {\n  between: [Int]\n  contains: Int\n  eq: Int\n  ge: Int\n  gt: Int\n  le: Int\n  lt: Int\n  ne: Int\n  notContains: Int\n}\n\ninput TableStringFilterInput {\n  beginsWith: String\n  between: [String]\n  contains: String\n  eq: String\n  ge: String\n  gt: String\n  le: String\n  lt: String\n  ne: String\n  notContains: String\n}\n",
+              "Definition": "schema {\n  query: Query\n  mutation: Mutation\n}\n\ntype Query {\n  getUserByIdentity: User @aws_cognito_user_pools\n\n  getUserById(id: ID!): User @aws_iam\n\n  getBusinessesWithOptions(\n    region: String!\n    csc: String!     filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getFeaturedBusinesses(\n    filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getBusinessByLocationAndSlug(csc: String!, slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  getBusinessBySlug(slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n}\n\ntype Mutation {\n  createUser(input: UserInput!): User @aws_iam\n\n  updateUser(input: UserInput!): User @aws_iam\n\n  updateUserSettings(input: SettingsInput!): User @aws_cognito_user_pools\n\n  createBusiness(input: CreateBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin\"])\n\n  updateBusiness(input: EditBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin, Business\"])\n\n  sendEmail(input: SendEmailInput!): Boolean\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  startCheckoutSession(priceId: String!, redirect_url: String): String!\n    @aws_cognito_user_pools\n\n  completeCheckoutSession(sessionId: String!): String! @aws_cognito_user_pools\n\n  createPortalSession(customerId: String!): String! @aws_cognito_user_pools\n}\n\ninput SendEmailInput {\n  name: String!\n  city: String!\n  phone: String!\n  businessEmail: String!\n  preferredStrain: [String!]!\n  gifts: [String!]!\n  paymentMethod: String!\n  quantity: String!\n}\n\ntype User @aws_cognito_user_pools @aws_iam {\n  id: ID!\n  stripeCustomerId: String\n  subscribed: Boolean   settings: UserSettings\n}\n\ninput UserInput {\n  id: ID!\n  stripeCustomerId: String\n}\n\ntype UserSettings @aws_cognito_user_pools @aws_iam {\n  darkMode: Boolean\n  favorites: [Business]\n}\n\ninput SettingsInput {\n  darkMode: Boolean\n  favorites: [String]\n}\n\nenum State {\n  nj\n}\n\ntype MenuItem @aws_cognito_user_pools @aws_iam @aws_api_key {\n  title: String\n  items: [String]\n}\n\ninput MenuItemInput @aws_cognito_user_pools @aws_iam {\n  title: String\n  items: [String]\n}\n\ntype Business @aws_cognito_user_pools @aws_iam @aws_api_key {\n  id: ID!\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItem]\n}\n\ntype BusinessConnection @aws_iam @aws_cognito_user_pools @aws_api_key {\n  items: [Business]\n  nextToken: String\n}\n\ninput BusinessFilterInput {\n  tags: [TableStringFilterInput]\n  industry: TableStringFilterInput\n}\n\ninput CreateBusinessInput {\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\ninput EditBusinessInput {\n  id: ID\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\n\ninput TableBooleanFilterInput {\n  eq: Boolean\n  ne: Boolean\n}\n\ninput TableFloatFilterInput {\n  between: [Float]\n  contains: Float\n  eq: Float\n  ge: Float\n  gt: Float\n  le: Float\n  lt: Float\n  ne: Float\n  notContains: Float\n}\n\ninput TableIDFilterInput {\n  beginsWith: ID\n  between: [ID]\n  contains: ID\n  eq: ID\n  ge: ID\n  gt: ID\n  le: ID\n  lt: ID\n  ne: ID\n  notContains: ID\n}\n\ninput TableIntFilterInput {\n  between: [Int]\n  contains: Int\n  eq: Int\n  ge: Int\n  gt: Int\n  le: Int\n  lt: Int\n  ne: Int\n  notContains: Int\n}\n\ninput TableStringFilterInput {\n  beginsWith: String\n  between: [String]\n  contains: String\n  eq: String\n  ge: String\n  gt: String\n  le: String\n  lt: String\n  ne: String\n  notContains: String\n}\n",
               "ApiId": {
                 "Fn::GetAtt": [
                   "GraphQlApi",
@@ -1157,69 +1157,6 @@
               }
             }
           },
-          "GraphQlFunctionConfigurationGetUserByCognitoSubFunction": {
-            "Type": "AWS::AppSync::FunctionConfiguration",
-            "Properties": {
-              "ApiId": {
-                "Fn::GetAtt": [
-                  "GraphQlApi",
-                  "ApiId"
-                ]
-              },
-              "Name": "GetUserByCognitoSubFunction",
-              "DataSourceName": {
-                "Fn::GetAtt": [
-                  "GraphQlDsUserTable",
-                  "Name"
-                ]
-              },
-              "FunctionVersion": "2018-05-29",
-              "RequestMappingTemplate": "{\n    \"version\": \"2017-02-28\",\n    \"operation\": \"GetItem\",\n    \"key\": {\n        \"id\": $util.dynamodb.toDynamoDBJson($ctx.stash.sub),\n    }\n}",
-              "ResponseMappingTemplate": "#if($ctx.error)\n    $util.error($ctx.error.message, $ctx.error.type)\n#end\n$util.toJson($context.result)"
-            }
-          },
-          "GraphQlFunctionConfigurationisUserSubscribedFunction": {
-            "Type": "AWS::AppSync::FunctionConfiguration",
-            "Properties": {
-              "ApiId": {
-                "Fn::GetAtt": [
-                  "GraphQlApi",
-                  "ApiId"
-                ]
-              },
-              "Name": "isUserSubscribedFunction",
-              "DataSourceName": {
-                "Fn::GetAtt": [
-                  "GraphQlDsIsUserSubscribedLambda",
-                  "Name"
-                ]
-              },
-              "FunctionVersion": "2018-05-29",
-              "RequestMappingTemplate": "{\n    \"operation\": \"Invoke\",\n    \"payload\": $util.toJson($context.prev.result)\n}",
-              "ResponseMappingTemplate": "#if($ctx.error)\n    $util.error($ctx.error.message, $ctx.error.type)\n#end\n\n#if($context.result)\n    $util.toJson($context.result)\n#else\n    $util.unauthorized()\n#end\n\n\n\n"
-            }
-          },
-          "GraphQlFunctionConfigurationsendEmailLambdaFunction": {
-            "Type": "AWS::AppSync::FunctionConfiguration",
-            "Properties": {
-              "ApiId": {
-                "Fn::GetAtt": [
-                  "GraphQlApi",
-                  "ApiId"
-                ]
-              },
-              "Name": "sendEmailLambdaFunction",
-              "DataSourceName": {
-                "Fn::GetAtt": [
-                  "GraphQlDsSendEmailLambda",
-                  "Name"
-                ]
-              },
-              "FunctionVersion": "2018-05-29",
-              "RequestMappingTemplate": "{\n    \"operation\": \"Invoke\",\n    \"payload\": $util.toJson($context.args)\n}",
-              "ResponseMappingTemplate": "#if($ctx.error)\n    $util.error($ctx.error.message, $ctx.error.type)\n#end\n$util.toJson($context.result)"
-            }
-          },
           "GraphQlResolverQuerygetBusinessesWithOptions": {
             "Type": "AWS::AppSync::Resolver",
             "DependsOn": "GraphQlSchema",
@@ -1506,29 +1443,11 @@
               },
               "TypeName": "Mutation",
               "FieldName": "sendEmail",
-              "RequestMappingTemplate": "$util.qr($ctx.stash.put(\"sub\", $ctx.identity.sub))\n{}",
-              "ResponseMappingTemplate": "$util.toJson($ctx.result)",
-              "Kind": "PIPELINE",
-              "PipelineConfig": {
-                "Functions": [
-                  {
-                    "Fn::GetAtt": [
-                      "GraphQlFunctionConfigurationGetUserByCognitoSubFunction",
-                      "FunctionId"
-                    ]
-                  },
-                  {
-                    "Fn::GetAtt": [
-                      "GraphQlFunctionConfigurationisUserSubscribedFunction",
-                      "FunctionId"
-                    ]
-                  },
-                  {
-                    "Fn::GetAtt": [
-                      "GraphQlFunctionConfigurationsendEmailLambdaFunction",
-                      "FunctionId"
-                    ]
-                  }
+              "Kind": "UNIT",
+              "DataSourceName": {
+                "Fn::GetAtt": [
+                  "GraphQlDsSendEmailLambda",
+                  "Name"
                 ]
               }
             }
@@ -1620,31 +1539,31 @@
           "SendEmailLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "SendEmailLambdaVersionjjgC6aueF9RXUDZauiur2DYdQA173a5HRiiAABHh8I"
+              "Ref": "SendEmailLambdaVersionaiLat1xs47Bte1c1Gg2M29aHtZ8i3CyVinuiosW0g"
             }
           },
           "CheckoutSessionLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CheckoutSessionLambdaVersionLl6rgJwyhlSYBmJlc5iWW9McSjS3FjlG2dOUT23hGM"
+              "Ref": "CheckoutSessionLambdaVersion0NsS9D27BgHBOZ23DanYLDapH7Os4Pn3vBXypXBpwI"
             }
           },
           "CompleteCheckoutLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CompleteCheckoutLambdaVersionSnO91BZMUycv15q0tzPoMzJ9lh6AdF2A4Pgx77Y8H0s"
+              "Ref": "CompleteCheckoutLambdaVersionCMMry294Ue4aswxboswdF87Rzki8T0FlPl0TpM6AMY"
             }
           },
           "CreatePortalSessionLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreatePortalSessionLambdaVersion8jUX4QeHbSzyGYMf53r4KQ2jBZgfz3JoMyplwIKSyBY"
+              "Ref": "CreatePortalSessionLambdaVersionASU9o7FdHaoLelWjx4oxu7dPSXiVy3FjV1ef6hO5v0"
             }
           },
           "IsUserSubscribedLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "IsUserSubscribedLambdaVersion4t3786buLAtoRD9MMzKSaK4gSI8iDVE71eVsFloVA"
+              "Ref": "IsUserSubscribedLambdaVersiond764i9h5zVHtwSdt6bYNa4Hf6NxzEgETz9elo5ju14"
             }
           },
           "GraphQlApiId": {
@@ -1902,17 +1821,11 @@
             "response": false
           },
           {
-            "dataSource": "none",
+            "dataSource": "SendEmailLambda",
             "type": "Mutation",
             "field": "sendEmail",
-            "request": "common/before.vtl",
-            "response": "common/after.vtl",
-            "kind": "PIPELINE",
-            "functions": [
-              "GetUserByCognitoSubFunction",
-              "isUserSubscribedFunction",
-              "sendEmailLambdaFunction"
-            ]
+            "request": false,
+            "response": false
           },
           {
             "dataSource": "CheckoutSessionLambda",
@@ -1934,26 +1847,6 @@
             "field": "createPortalSession",
             "request": false,
             "response": false
-          }
-        ],
-        "functionConfigurations": [
-          {
-            "dataSource": "UserTable",
-            "name": "GetUserByCognitoSubFunction",
-            "request": "mutation/sendEmail/getUser/request.vtl",
-            "response": "mutation/sendEmail/basic-response.vtl"
-          },
-          {
-            "dataSource": "IsUserSubscribedLambda",
-            "name": "isUserSubscribedFunction",
-            "request": "mutation/sendEmail/isUserSubscribed/request.vtl",
-            "response": "mutation/sendEmail/isUserSubscribed/response.vtl"
-          },
-          {
-            "dataSource": "SendEmailLambda",
-            "name": "sendEmailLambdaFunction",
-            "request": "mutation/sendEmail/sendEmailFunction/request.vtl",
-            "response": "mutation/sendEmail/basic-response.vtl"
           }
         ]
       }
@@ -1985,7 +1878,7 @@
         "events": [],
         "memory": 1024,
         "vpc": {},
-        "versionLogicalId": "SendEmailLambdaVersionjjgC6aueF9RXUDZauiur2DYdQA173a5HRiiAABHh8I"
+        "versionLogicalId": "SendEmailLambdaVersionaiLat1xs47Bte1c1Gg2M29aHtZ8i3CyVinuiosW0g"
       },
       "CheckoutSession": {
         "handler": "index.handler",
@@ -1995,7 +1888,7 @@
         "timeout": 30,
         "maximumRetryAttempts": 2,
         "environment": {
-          "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+          "STRIPE_API_KEY": "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"
         },
         "tags": {
           "Potluck": "Potluck"
@@ -2010,7 +1903,7 @@
         "events": [],
         "memory": 1024,
         "vpc": {},
-        "versionLogicalId": "CheckoutSessionLambdaVersionLl6rgJwyhlSYBmJlc5iWW9McSjS3FjlG2dOUT23hGM"
+        "versionLogicalId": "CheckoutSessionLambdaVersion0NsS9D27BgHBOZ23DanYLDapH7Os4Pn3vBXypXBpwI"
       },
       "CompleteCheckout": {
         "handler": "index.handler",
@@ -2023,7 +1916,7 @@
           "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"CompleteCheckoutLambdaFunction\"][\"Properties\"][\"Layers\"]"
         },
         "environment": {
-          "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+          "STRIPE_API_KEY": "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"
         },
         "tags": {
           "Potluck": "Potluck"
@@ -2038,7 +1931,7 @@
         "events": [],
         "memory": 1024,
         "vpc": {},
-        "versionLogicalId": "CompleteCheckoutLambdaVersionSnO91BZMUycv15q0tzPoMzJ9lh6AdF2A4Pgx77Y8H0s"
+        "versionLogicalId": "CompleteCheckoutLambdaVersionCMMry294Ue4aswxboswdF87Rzki8T0FlPl0TpM6AMY"
       },
       "CreatePortalSession": {
         "handler": "index.handler",
@@ -2049,7 +1942,7 @@
         "maximumRetryAttempts": 2,
         "role": "arn:aws:iam::185477522948:role/appsync-lambda-role",
         "environment": {
-          "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+          "STRIPE_API_KEY": "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"
         },
         "tags": {
           "Potluck": "Potluck"
@@ -2064,7 +1957,7 @@
         "events": [],
         "memory": 1024,
         "vpc": {},
-        "versionLogicalId": "CreatePortalSessionLambdaVersion8jUX4QeHbSzyGYMf53r4KQ2jBZgfz3JoMyplwIKSyBY"
+        "versionLogicalId": "CreatePortalSessionLambdaVersionASU9o7FdHaoLelWjx4oxu7dPSXiVy3FjV1ef6hO5v0"
       },
       "IsUserSubscribed": {
         "handler": "index.handler",
@@ -2078,7 +1971,7 @@
           "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"IsUserSubscribedLambdaFunction\"][\"Properties\"][\"Layers\"]"
         },
         "environment": {
-          "STRIPE_API_KEY": "sk_test_51IR9uPLKwcvtvXgDcTaa9Aadg2kDlt5hy5RMRCFk1WGl9iUGlqqSqInsxNKMEIqwa56cYSEkZS6JyW2qoN4kW4nS002Jn1ajQP"
+          "STRIPE_API_KEY": "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"
         },
         "tags": {
           "Potluck": "Potluck"
@@ -2093,7 +1986,7 @@
         "events": [],
         "memory": 1024,
         "vpc": {},
-        "versionLogicalId": "IsUserSubscribedLambdaVersion4t3786buLAtoRD9MMzKSaK4gSI8iDVE71eVsFloVA"
+        "versionLogicalId": "IsUserSubscribedLambdaVersiond764i9h5zVHtwSdt6bYNa4Hf6NxzEgETz9elo5ju14"
       }
     },
     "resources": {
@@ -2204,7 +2097,7 @@
     "isDashboardMonitoringPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/potluck-appsync/Dev/1615686362686-2021-03-14T01:46:02.686Z",
+    "artifactDirectoryName": "serverless/potluck-appsync/Dev/1619142837759-2021-04-23T01:53:57.759Z",
     "artifact": ""
   }
 }

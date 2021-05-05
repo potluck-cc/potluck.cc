@@ -7,8 +7,8 @@ exports.handler = void 0;
 const send_email_1 = __importDefault(require("./send-email"));
 const handler = async (event, context, cb) => {
     console.log(event);
-    if (event.arguments && event.arguments.order) {
-        return await send_email_1.default(event.order);
+    if (event.arguments && event.arguments.input) {
+        return await send_email_1.default(event.arguments.input);
     }
     else if (event.input) {
         return await send_email_1.default(event.input);
