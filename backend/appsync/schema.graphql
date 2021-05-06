@@ -29,12 +29,14 @@ type Query {
   getBusinessBySlug(slug: String!): BusinessConnection
     @aws_cognito_user_pools
     @aws_api_key
+
+  getBusinessReviews(businessId: ID!): ReviewConnection @aws_cognito_user_pools
 }
 
 type Mutation {
   createUser(input: UserInput!): User @aws_iam
 
-  updateUser(input: UserInput!): User @aws_iam
+  updateUser(input: UserInput!): User @aws_iam @aws_cognito_user_pools
 
   updateUserSettings(input: SettingsInput!): User @aws_cognito_user_pools
 
@@ -58,6 +60,25 @@ type Mutation {
   completeCheckoutSession(sessionId: String!): String! @aws_cognito_user_pools
 
   createPortalSession(customerId: String!): String! @aws_cognito_user_pools
+
+  addReview(input: AddReviewInput!): Review!
+}
+
+type Review @aws_cognito_user_pools {
+  id: ID!
+  userId: ID!
+  text: String!
+}
+
+input AddReviewInput {
+  id: ID!
+  userId: ID!
+  text: String!
+}
+
+type ReviewConnection @aws_cognito_user_pools {
+  items: [Review]
+  nextToken: String
 }
 
 input SendEmailInput {
@@ -76,11 +97,13 @@ type User @aws_cognito_user_pools @aws_iam {
   stripeCustomerId: String
   subscribed: Boolean # isUserSubscribedLambda
   settings: UserSettings
+  username: String
 }
 
 input UserInput {
   id: ID!
   stripeCustomerId: String
+  username: String
 }
 
 type UserSettings @aws_cognito_user_pools @aws_iam {

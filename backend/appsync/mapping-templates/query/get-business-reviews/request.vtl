@@ -1,0 +1,21 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "Query",
+    "query" : {
+        "expression" : "#id = :id and #timestamp >= :timestamp"",
+        "expressionNames": {
+            "#id" : "id",
+            "#timestamp": "createdAt"
+        },
+        "expressionValues" : {
+            ":id": { "S" : "$context.args.businessId" },
+            ":timestamp": { "N" : 0 }
+        }
+    },
+    "nextToken" : $util.toJson($util.defaultIfNullOrEmpty($ctx.args.nextToken, null)),
+    "scanIndexForward" : false,
+    "limit" : $util.defaultIfNull($context.args.limit, 20),
+    "consistentRead" : false,
+    "select" : "ALL_ATTRIBUTES",
+    "filter" : #if($context.args.filter) $util.transform.toDynamoDBFilterExpression($ctx.args.filter) #else null #end,
+}
