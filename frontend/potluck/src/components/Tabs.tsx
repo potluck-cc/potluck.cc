@@ -6,12 +6,19 @@ import Tab from "@material-ui/core/Tab";
 
 const useStyles = makeStyles({
   root: {
-    // flexGrow: 1,
     width: "80%",
   },
 });
 
-export default function CenteredTabs({ onSetValue = (value: number) => {} }) {
+export default function CenteredTabs({
+  onSetValue = () => {},
+  activeTab = undefined,
+  orderFormToggled,
+}: {
+  onSetValue: (value: number) => void;
+  activeTab?: undefined | number;
+  orderFormToggled?: boolean;
+}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -23,15 +30,15 @@ export default function CenteredTabs({ onSetValue = (value: number) => {} }) {
   return (
     <Paper className={classes.root}>
       <Tabs
-        value={value}
+        value={activeTab !== undefined ? activeTab : value}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
         centered
       >
-        <Tab label="Menu" />
-        <Tab label="Order" />
-        <Tab label="Questions" />
+        <Tab label={orderFormToggled ? "Order" : "Menu"} />
+        <Tab label="Reviews" />
+        <Tab label="About" />
       </Tabs>
     </Paper>
   );

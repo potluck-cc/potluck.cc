@@ -1,16 +1,22 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { MenuItem } from "types";
+import Order from "./Order";
+import Button from "@material-ui/core/Button";
 
 export default function ({
-  data = [],
-  description,
+  menu = [],
+  businessEmail,
+  orderFormToggled,
+  toggleOrderForm,
 }: {
-  data?: MenuItem[];
-  description?: string;
+  menu?: MenuItem[];
+  businessEmail?: string;
+  orderFormToggled?: boolean;
+  toggleOrderForm?: (value: boolean) => void;
 }) {
   function renderMenu() {
-    return data?.map((d) => {
+    return menu?.map((d) => {
       return (
         <div>
           <Typography gutterBottom variant="h3" component="h2">
@@ -32,17 +38,24 @@ export default function ({
         maxWidth: 420,
       }}
     >
-      {renderMenu()}
-
-      {description && description.length && (
+      {orderFormToggled ? (
         <>
-          <Typography gutterBottom variant="h3" component="h2">
-            About
-          </Typography>
-          <Typography gutterBottom variant="h6">
-            <div dangerouslySetInnerHTML={{ __html: description }} />
-          </Typography>
+          <Order menu={menu} businessEmail={businessEmail} />
         </>
+      ) : (
+        <>{renderMenu()}</>
+      )}
+
+      {!orderFormToggled && (
+        <Button
+          size="large"
+          color="primary"
+          variant="contained"
+          style={{ marginBottom: 8 }}
+          onClick={() => toggleOrderForm && toggleOrderForm(!orderFormToggled)}
+        >
+          Order Now
+        </Button>
       )}
     </div>
   );

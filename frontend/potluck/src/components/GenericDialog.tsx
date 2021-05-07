@@ -7,20 +7,27 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 interface AppEntryProps {
-  content: string;
+  content: string | JSX.Element;
   title: string;
   onClose?: () => void;
   action: {
     title: string;
     onClick?: () => void;
   };
+  dialogOpen?: boolean;
 }
 
-export default function ({ content, title, action, onClose }: AppEntryProps) {
-  const [open, isOpen] = useState(true);
+export default function ({
+  content,
+  title,
+  action,
+  onClose,
+  dialogOpen,
+}: AppEntryProps) {
+  const [open, isOpen] = useState(dialogOpen !== undefined ? dialogOpen : true);
 
   return (
-    <Dialog open={open}>
+    <Dialog open={dialogOpen !== undefined ? dialogOpen : open}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <Typography gutterBottom variant="subtitle1">
