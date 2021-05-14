@@ -30,7 +30,9 @@ type Query {
     @aws_cognito_user_pools
     @aws_api_key
 
-  getBusinessReviews(businessId: ID!): ReviewConnection @aws_cognito_user_pools
+  getBusinessReviews(businessId: ID!): ReviewConnection
+    @aws_cognito_user_pools
+    @aws_api_key
 }
 
 type Mutation {
@@ -62,21 +64,34 @@ type Mutation {
   createPortalSession(customerId: String!): String! @aws_cognito_user_pools
 
   addReview(input: AddReviewInput!): Review!
+    @aws_cognito_user_pools
+    @aws_api_key
+
+  deleteReview(input: DeleteReviewInput!): Review! @aws_cognito_user_pools
 }
 
-type Review @aws_cognito_user_pools {
+type Review @aws_cognito_user_pools @aws_api_key {
   id: ID!
   userId: ID!
   text: String!
+  createdAt: Int!
+  username: String
 }
 
 input AddReviewInput {
   id: ID!
   userId: ID!
   text: String!
+  createdAt: Int!
+  username: String
 }
 
-type ReviewConnection @aws_cognito_user_pools {
+input DeleteReviewInput {
+  id: ID!
+  createdAt: Int!
+}
+
+type ReviewConnection @aws_cognito_user_pools @aws_api_key {
   items: [Review]
   nextToken: String
 }

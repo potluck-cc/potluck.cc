@@ -3,16 +3,15 @@ import { API, graphqlOperation } from "aws-amplify";
 
 export type User = {
   id: string;
-  subscribed: boolean;
-  stripeCustomerId: string;
+  subscribed?: boolean;
+  username?: string;
 };
 
 export const getUserByIdentity = gql`
   query getUserByIdentity {
     getUserByIdentity {
       id
-      subscribed
-      stripeCustomerId
+      username
     }
   }
 `;

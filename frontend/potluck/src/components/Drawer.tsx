@@ -51,7 +51,7 @@ export default function TemporaryDrawer({
       </ListItem>
 
       <List>
-        {ctx?.dynamoUser?.stripeCustomerId && (
+        {/* {ctx?.dynamoUser?.stripeCustomerId && (
           <ListItem
             button
             onClick={() => {
@@ -65,7 +65,7 @@ export default function TemporaryDrawer({
             </ListItemIcon>
             <ListItemText primary="Billing" />
           </ListItem>
-        )}
+        )} */}
 
         {!ctx?.subscribed && (
           <ListItem

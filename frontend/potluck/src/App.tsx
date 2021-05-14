@@ -48,10 +48,11 @@ function App() {
       if (user) {
         setUser(user);
         isAuthenticated(true);
+
         const dynamoUser = await getUser();
 
         if (dynamoUser) {
-          isSubscribed(dynamoUser.subscribed);
+          // isSubscribed(dynamoUser.subscribed);
           setdynamoUser(dynamoUser);
         }
       } else {
@@ -133,6 +134,7 @@ function App() {
         isSubscribed,
         user,
         dynamoUser,
+        setdynamoUser,
       }}
     >
       <ThemeProvider theme={theme}>

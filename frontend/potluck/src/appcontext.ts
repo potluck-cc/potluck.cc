@@ -12,6 +12,7 @@ export interface AppContextInterface {
   isSubscribed: Dispatch<React.SetStateAction<boolean>>;
   user: null | any;
   dynamoUser: null | User;
+  setdynamoUser: Dispatch<React.SetStateAction<User | null>>;
 }
 
 export default createContext<AppContextInterface | null>(null);

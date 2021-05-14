@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import appcontext from "appcontext";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -19,9 +20,16 @@ const useStyles = makeStyles(() => ({
   avatar: {},
 }));
 
-export default function Comment({ text = "", username = "", date = "" }) {
+export default function Comment({
+  text = "",
+  username = "",
+  date = "",
+  userId = "",
+  onClickDelete = () => {},
+}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const ctx = useContext(appcontext);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -30,6 +38,11 @@ export default function Comment({ text = "", username = "", date = "" }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  function handleDelete() {
+    onClickDelete && onClickDelete();
+    handleClose();
+  }
 
   return (
     <Card className={classes.root}>
@@ -40,7 +53,13 @@ export default function Comment({ text = "", username = "", date = "" }) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="optoins" onClick={handleClick}>
+          <IconButton
+            aria-label="optoins"
+            onClick={ctx?.dynamoUser?.id === userId ? handleClick : undefined}
+            style={{
+              opacity: ctx?.dynamoUser?.id === userId ? 1 : 0,
+            }}
+          >
             <MoreVertIcon />
           </IconButton>
         }
@@ -60,7 +79,11 @@ export default function Comment({ text = "", username = "", date = "" }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Delete</MenuItem>
+        <MenuItem
+          onClick={ctx?.dynamoUser?.id === userId ? handleDelete : undefined}
+        >
+          Delete
+        </MenuItem>
       </Menu>
     </Card>
   );

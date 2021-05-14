@@ -15,6 +15,15 @@ export const updateUserSettings = gql`
   }
 `;
 
+export const updateUserDoc = gql`
+  mutation updateUser($input: UserInput!) {
+    updateUser(input: $input) {
+      id
+      username
+    }
+  }
+`;
+
 export async function updateSettings({
   darkMode,
   favorites,
@@ -32,4 +41,24 @@ export async function updateSettings({
   );
 
   return user;
+}
+
+export async function updateUser({
+  id,
+  username,
+}: {
+  id: string;
+  username: string;
+}) {
+  const user = await API.graphql(
+    graphqlOperation(updateUserDoc, {
+      input: {
+        id,
+        username,
+      },
+    })
+  );
+
+  //@ts-ignore
+  return user.data.updateUser;
 }

@@ -211,7 +211,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/potluck-appsync/Dev/1620269107589-2021-05-06T02:45:07.589Z/sendEmail.zip"
+          "S3Key": "serverless/potluck-appsync/Dev/1620947106038-2021-05-13T23:05:06.038Z/sendEmail.zip"
         },
         "FunctionName": "SendEmail-Dev",
         "Handler": "index.handler",
@@ -259,7 +259,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/potluck-appsync/Dev/1620269107589-2021-05-06T02:45:07.589Z/checkoutSession.zip"
+          "S3Key": "serverless/potluck-appsync/Dev/1620947106038-2021-05-13T23:05:06.038Z/checkoutSession.zip"
         },
         "FunctionName": "CheckoutSession-Dev",
         "Handler": "index.handler",
@@ -307,7 +307,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/potluck-appsync/Dev/1620269107589-2021-05-06T02:45:07.589Z/completeCheckout.zip"
+          "S3Key": "serverless/potluck-appsync/Dev/1620947106038-2021-05-13T23:05:06.038Z/completeCheckout.zip"
         },
         "FunctionName": "CompleteCheckout-Dev",
         "Handler": "index.handler",
@@ -358,7 +358,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/potluck-appsync/Dev/1620269107589-2021-05-06T02:45:07.589Z/CreatePortalSession.zip"
+          "S3Key": "serverless/potluck-appsync/Dev/1620947106038-2021-05-13T23:05:06.038Z/CreatePortalSession.zip"
         },
         "FunctionName": "CreatePortalSession-Dev",
         "Handler": "index.handler",
@@ -401,7 +401,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/potluck-appsync/Dev/1620269107589-2021-05-06T02:45:07.589Z/IsUserSubscribed.zip"
+          "S3Key": "serverless/potluck-appsync/Dev/1620947106038-2021-05-13T23:05:06.038Z/IsUserSubscribed.zip"
         },
         "FunctionName": "IsUserSubscribed-Dev",
         "Handler": "index.handler",
@@ -604,13 +604,13 @@
           ]
         },
         "Description": "Auto-generated api key",
-        "Expires": 1651802400
+        "Expires": 1652482800
       }
     },
     "GraphQlSchema": {
       "Type": "AWS::AppSync::GraphQLSchema",
       "Properties": {
-        "Definition": "schema {\n  query: Query\n  mutation: Mutation\n}\n\ntype Query {\n  getUserByIdentity: User @aws_cognito_user_pools\n\n  getUserById(id: ID!): User @aws_iam\n\n  getBusinessesWithOptions(\n    region: String!\n    csc: String!     filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getFeaturedBusinesses(\n    filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getBusinessByLocationAndSlug(csc: String!, slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  getBusinessBySlug(slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  getBusinessReviews(businessId: ID!): ReviewConnection @aws_cognito_user_pools\n}\n\ntype Mutation {\n  createUser(input: UserInput!): User @aws_iam\n\n  updateUser(input: UserInput!): User @aws_iam @aws_cognito_user_pools\n\n  updateUserSettings(input: SettingsInput!): User @aws_cognito_user_pools\n\n  createBusiness(input: CreateBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin\"])\n\n  updateBusiness(input: EditBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin, Business\"])\n\n  sendEmail(input: SendEmailInput!): Boolean\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  startCheckoutSession(priceId: String!, redirect_url: String): String!\n    @aws_cognito_user_pools\n\n  completeCheckoutSession(sessionId: String!): String! @aws_cognito_user_pools\n\n  createPortalSession(customerId: String!): String! @aws_cognito_user_pools\n\n  addReview(input: AddReviewInput!): Review!\n}\n\ntype Review @aws_cognito_user_pools {\n  id: ID!\n  userId: ID!\n  text: String!\n}\n\ninput AddReviewInput {\n  id: ID!\n  userId: ID!\n  text: String!\n}\n\ntype ReviewConnection @aws_cognito_user_pools {\n  items: [Review]\n  nextToken: String\n}\n\ninput SendEmailInput {\n  name: String!\n  city: String!\n  phone: String!\n  businessEmail: String!\n  preferredStrain: [String!]!\n  gifts: [String!]!\n  paymentMethod: String!\n  quantity: String!\n}\n\ntype User @aws_cognito_user_pools @aws_iam {\n  id: ID!\n  stripeCustomerId: String\n  subscribed: Boolean   settings: UserSettings\n  username: String\n}\n\ninput UserInput {\n  id: ID!\n  stripeCustomerId: String\n  username: String\n}\n\ntype UserSettings @aws_cognito_user_pools @aws_iam {\n  darkMode: Boolean\n  favorites: [Business]\n}\n\ninput SettingsInput {\n  darkMode: Boolean\n  favorites: [String]\n}\n\nenum State {\n  nj\n}\n\ntype MenuItem @aws_cognito_user_pools @aws_iam @aws_api_key {\n  title: String\n  items: [String]\n}\n\ninput MenuItemInput @aws_cognito_user_pools @aws_iam {\n  title: String\n  items: [String]\n}\n\ntype Business @aws_cognito_user_pools @aws_iam @aws_api_key {\n  id: ID!\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItem]\n}\n\ntype BusinessConnection @aws_iam @aws_cognito_user_pools @aws_api_key {\n  items: [Business]\n  nextToken: String\n}\n\ninput BusinessFilterInput {\n  tags: [TableStringFilterInput]\n  industry: TableStringFilterInput\n}\n\ninput CreateBusinessInput {\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\ninput EditBusinessInput {\n  id: ID\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\n\ninput TableBooleanFilterInput {\n  eq: Boolean\n  ne: Boolean\n}\n\ninput TableFloatFilterInput {\n  between: [Float]\n  contains: Float\n  eq: Float\n  ge: Float\n  gt: Float\n  le: Float\n  lt: Float\n  ne: Float\n  notContains: Float\n}\n\ninput TableIDFilterInput {\n  beginsWith: ID\n  between: [ID]\n  contains: ID\n  eq: ID\n  ge: ID\n  gt: ID\n  le: ID\n  lt: ID\n  ne: ID\n  notContains: ID\n}\n\ninput TableIntFilterInput {\n  between: [Int]\n  contains: Int\n  eq: Int\n  ge: Int\n  gt: Int\n  le: Int\n  lt: Int\n  ne: Int\n  notContains: Int\n}\n\ninput TableStringFilterInput {\n  beginsWith: String\n  between: [String]\n  contains: String\n  eq: String\n  ge: String\n  gt: String\n  le: String\n  lt: String\n  ne: String\n  notContains: String\n}\n",
+        "Definition": "schema {\n  query: Query\n  mutation: Mutation\n}\n\ntype Query {\n  getUserByIdentity: User @aws_cognito_user_pools\n\n  getUserById(id: ID!): User @aws_iam\n\n  getBusinessesWithOptions(\n    region: String!\n    csc: String!     filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getFeaturedBusinesses(\n    filter: BusinessFilterInput\n    limit: Int\n    nextToken: String\n  ): BusinessConnection @aws_cognito_user_pools @aws_api_key\n\n  getBusinessByLocationAndSlug(csc: String!, slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  getBusinessBySlug(slug: String!): BusinessConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  getBusinessReviews(businessId: ID!): ReviewConnection\n    @aws_cognito_user_pools\n    @aws_api_key\n}\n\ntype Mutation {\n  createUser(input: UserInput!): User @aws_iam\n\n  updateUser(input: UserInput!): User @aws_iam @aws_cognito_user_pools\n\n  updateUserSettings(input: SettingsInput!): User @aws_cognito_user_pools\n\n  createBusiness(input: CreateBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin\"])\n\n  updateBusiness(input: EditBusinessInput!): Business\n    @aws_iam\n    @aws_cognito_user_pools\n    @aws_auth(cognito_groups: [\"Admin, Business\"])\n\n  sendEmail(input: SendEmailInput!): Boolean\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  startCheckoutSession(priceId: String!, redirect_url: String): String!\n    @aws_cognito_user_pools\n\n  completeCheckoutSession(sessionId: String!): String! @aws_cognito_user_pools\n\n  createPortalSession(customerId: String!): String! @aws_cognito_user_pools\n\n  addReview(input: AddReviewInput!): Review!\n    @aws_cognito_user_pools\n    @aws_api_key\n\n  deleteReview(input: DeleteReviewInput!): Review! @aws_cognito_user_pools\n}\n\ntype Review @aws_cognito_user_pools @aws_api_key {\n  id: ID!\n  userId: ID!\n  text: String!\n  createdAt: Int!\n  username: String\n}\n\ninput AddReviewInput {\n  id: ID!\n  userId: ID!\n  text: String!\n  createdAt: Int!\n  username: String\n}\n\ninput DeleteReviewInput {\n  id: ID!\n  createdAt: Int!\n}\n\ntype ReviewConnection @aws_cognito_user_pools @aws_api_key {\n  items: [Review]\n  nextToken: String\n}\n\ninput SendEmailInput {\n  name: String!\n  city: String!\n  phone: String!\n  businessEmail: String!\n  preferredStrain: [String!]!\n  gifts: [String!]!\n  paymentMethod: String!\n  quantity: String!\n}\n\ntype User @aws_cognito_user_pools @aws_iam {\n  id: ID!\n  stripeCustomerId: String\n  subscribed: Boolean   settings: UserSettings\n  username: String\n}\n\ninput UserInput {\n  id: ID!\n  stripeCustomerId: String\n  username: String\n}\n\ntype UserSettings @aws_cognito_user_pools @aws_iam {\n  darkMode: Boolean\n  favorites: [Business]\n}\n\ninput SettingsInput {\n  darkMode: Boolean\n  favorites: [String]\n}\n\nenum State {\n  nj\n}\n\ntype MenuItem @aws_cognito_user_pools @aws_iam @aws_api_key {\n  title: String\n  items: [String]\n}\n\ninput MenuItemInput @aws_cognito_user_pools @aws_iam {\n  title: String\n  items: [String]\n}\n\ntype Business @aws_cognito_user_pools @aws_iam @aws_api_key {\n  id: ID!\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItem]\n}\n\ntype BusinessConnection @aws_iam @aws_cognito_user_pools @aws_api_key {\n  items: [Business]\n  nextToken: String\n}\n\ninput BusinessFilterInput {\n  tags: [TableStringFilterInput]\n  industry: TableStringFilterInput\n}\n\ninput CreateBusinessInput {\n  region: State!\n  slug: String!\n  title: String!\n  email: String!\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\ninput EditBusinessInput {\n  id: ID\n  description: String\n  avatar: String\n  menu: [MenuItemInput]\n}\n\n\ninput TableBooleanFilterInput {\n  eq: Boolean\n  ne: Boolean\n}\n\ninput TableFloatFilterInput {\n  between: [Float]\n  contains: Float\n  eq: Float\n  ge: Float\n  gt: Float\n  le: Float\n  lt: Float\n  ne: Float\n  notContains: Float\n}\n\ninput TableIDFilterInput {\n  beginsWith: ID\n  between: [ID]\n  contains: ID\n  eq: ID\n  ge: ID\n  gt: ID\n  le: ID\n  lt: ID\n  ne: ID\n  notContains: ID\n}\n\ninput TableIntFilterInput {\n  between: [Int]\n  contains: Int\n  eq: Int\n  ge: Int\n  gt: Int\n  le: Int\n  lt: Int\n  ne: Int\n  notContains: Int\n}\n\ninput TableStringFilterInput {\n  beginsWith: String\n  between: [String]\n  contains: String\n  eq: String\n  ge: String\n  gt: String\n  le: String\n  lt: String\n  ne: String\n  notContains: String\n}\n",
         "ApiId": {
           "Fn::GetAtt": [
             "GraphQlApi",
@@ -1661,7 +1661,30 @@
         },
         "TypeName": "Query",
         "FieldName": "getBusinessReviews",
-        "RequestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"Query\",\n    \"query\" : {\n        \"expression\" : \"#id = :id and #timestamp >= :timestamp\"\",\n        \"expressionNames\": {\n            \"#id\" : \"id\",\n            \"#timestamp\": \"createdAt\"\n        },\n        \"expressionValues\" : {\n            \":id\": { \"S\" : \"$context.args.businessId\" },\n            \":timestamp\": { \"N\" : 0 }\n        }\n    },\n    \"nextToken\" : $util.toJson($util.defaultIfNullOrEmpty($ctx.args.nextToken, null)),\n    \"scanIndexForward\" : false,\n    \"limit\" : $util.defaultIfNull($context.args.limit, 20),\n    \"consistentRead\" : false,\n    \"select\" : \"ALL_ATTRIBUTES\",\n    \"filter\" : #if($context.args.filter) $util.transform.toDynamoDBFilterExpression($ctx.args.filter) #else null #end,\n}",
+        "RequestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"Query\",\n    \"query\" : {\n        \"expression\" : \"#id = :id and #timestamp >= :timestamp\",\n        \"expressionNames\": {\n            \"#id\" : \"id\",\n            \"#timestamp\": \"createdAt\"\n        },\n        \"expressionValues\" : {\n            \":id\": { \"S\" : \"$context.args.businessId\" },\n            \":timestamp\": { \"N\" : 0 }\n        }\n    },\n    \"nextToken\" : $util.toJson($util.defaultIfNullOrEmpty($ctx.args.nextToken, null)),\n    \"scanIndexForward\" : false,\n    \"limit\" : $util.defaultIfNull($context.args.limit, 20),\n    \"consistentRead\" : false,\n    \"select\" : \"ALL_ATTRIBUTES\",\n    \"filter\" : #if($context.args.filter) $util.transform.toDynamoDBFilterExpression($ctx.args.filter) #else null #end,\n}",
+        "ResponseMappingTemplate": "$util.toJson($ctx.result)",
+        "Kind": "UNIT",
+        "DataSourceName": {
+          "Fn::GetAtt": [
+            "GraphQlDsReviewTable",
+            "Name"
+          ]
+        }
+      }
+    },
+    "GraphQlResolverMutationdeleteReview": {
+      "Type": "AWS::AppSync::Resolver",
+      "DependsOn": "GraphQlSchema",
+      "Properties": {
+        "ApiId": {
+          "Fn::GetAtt": [
+            "GraphQlApi",
+            "ApiId"
+          ]
+        },
+        "TypeName": "Mutation",
+        "FieldName": "deleteReview",
+        "RequestMappingTemplate": "{\n  \"version\": \"2017-02-28\",\n  \"operation\": \"DeleteItem\",\n  \"key\": {\n    \"id\": $util.dynamodb.toDynamoDBJson($ctx.args.input.id),\n    \"createdAt\": $util.dynamodb.toDynamoDBJson($ctx.args.input.createdAt)\n  },\n}",
         "ResponseMappingTemplate": "$util.toJson($ctx.result)",
         "Kind": "UNIT",
         "DataSourceName": {

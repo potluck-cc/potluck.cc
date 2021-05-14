@@ -19,15 +19,6 @@ export default function () {
   const params = useParams();
   const location = useLocation();
   const history = useHistory();
-  const [open, setOpen] = React.useState(false);
-
-  const handleTooltipClose = () => {
-    setOpen(false);
-  };
-
-  const handleTooltipOpen = () => {
-    setOpen(true);
-  };
 
   useEffect(() => {
     init();
@@ -107,7 +98,7 @@ export default function () {
           />
         );
       case 1:
-        return <Reviews />;
+        return <Reviews businessId={business?.id} />;
       case 2:
         return <Questions description={business?.description} />;
       default:

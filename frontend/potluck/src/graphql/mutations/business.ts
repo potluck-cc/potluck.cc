@@ -18,6 +18,72 @@ export const updateBusinessDoc = gql`
   }
 `;
 
+export const addReviewDoc = gql`
+  mutation AddReview($input: AddReviewInput!) {
+    addReview(input: $input) {
+      id
+      text
+      username
+      userId
+    }
+  }
+`;
+
+export const deleteReviewDoc = gql`
+  mutation DeleteReview($input: DeleteReviewInput!) {
+    deleteReview(input: $input) {
+      id
+    }
+  }
+`;
+
+export async function addReview({
+  id,
+  text,
+  username,
+  createdAt,
+  userId,
+}: {
+  id: string;
+  text: string;
+  username: string;
+  userId: string;
+  createdAt: number;
+}) {
+  const review = await API.graphql(
+    graphqlOperation(addReviewDoc, {
+      input: {
+        id,
+        text,
+        username,
+        createdAt,
+        userId,
+      },
+    })
+  );
+
+  return review;
+}
+
+export async function deleteReview({
+  id,
+  createdAt,
+}: {
+  id: string;
+  createdAt: number;
+}) {
+  const review = await API.graphql(
+    graphqlOperation(deleteReviewDoc, {
+      input: {
+        id,
+        createdAt,
+      },
+    })
+  );
+
+  return review;
+}
+
 export async function updateBusiness({
   id,
   description,

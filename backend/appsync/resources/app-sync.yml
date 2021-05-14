@@ -116,6 +116,11 @@ mappingTemplates:
     field: getBusinessReviews
     request: query/get-business-reviews/request.vtl
     response: common/generic-response.vtl
+  - dataSource: ReviewTable
+    type: Mutation
+    field: deleteReview
+    request: mutation/delete-business-review/request.vtl
+    response: common/generic-response.vtl
 
   ## lambda
 
