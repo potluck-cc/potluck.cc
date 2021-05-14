@@ -5,20 +5,84 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
-import { MenuItem } from "types";
+import FormControl from "@material-ui/core/FormControl";
+import Typography from "@material-ui/core/Typography";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import { makeStyles } from "@material-ui/core/styles";
+import MenuItem from "@material-ui/core/MenuItem";
+import Chip from "@material-ui/core/Chip";
+import { MenuItem as MenuItemType } from "types";
 
 type ProfileDialogProps = {
   open: boolean;
   handleCloseDialog: () => void;
-  menu: MenuItem[] | undefined;
+  menu: MenuItemType[] | undefined;
   description: string;
+  deliveryLocations: string[];
   updateBusiness: (items: {
     flower?: string;
     edibles?: string;
     concentrates?: string;
     description?: string;
+    deliveryLocations?: string[];
   }) => void;
 };
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+      maxWidth: 420,
+    },
+  },
+  formGroup: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 140,
+    maxWidth: 420,
+    "& > *": {
+      margin: 4,
+    },
+  },
+  chips: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  chip: {
+    margin: 2,
+  },
+  input: {
+    margin: 6,
+  },
+}));
+
+const counties = [
+  "atlantic",
+  "bergen",
+  "burlington",
+  "camden",
+  "capemay",
+  "cumberland",
+  "essex",
+  "gloucester",
+  "hudson",
+  "hunterdon",
+  "mercer",
+  "middlesex",
+  "monmouth",
+  "morris",
+  "ocean",
+  "passaic",
+  "salem",
+  "somerset",
+  "sussex",
+  "union",
+  "warren",
+];
 
 export default function ({
   open = false,
@@ -26,12 +90,22 @@ export default function ({
   menu,
   updateBusiness,
   description,
+  deliveryLocations,
 }: ProfileDialogProps) {
   const [state, setState] = useState({
     premiums: undefined,
     exotics: undefined,
     description,
   });
+
+  const classes = useStyles();
+
+  const [selectedCounties, selectCounty] =
+    useState<string[]>(deliveryLocations);
+
+  useEffect(() => {
+    selectCounty(deliveryLocations);
+  }, [deliveryLocations]);
 
   useEffect(() => {
     initFormValues();
@@ -42,7 +116,10 @@ export default function ({
   }, [description]);
 
   function handleSubmit() {
-    updateBusiness(state);
+    updateBusiness({
+      ...state,
+      deliveryLocations: selectedCounties,
+    });
     handleCloseDialog();
   }
 
@@ -105,6 +182,30 @@ export default function ({
               margin: 10,
             }}
           />
+
+          <FormControl className={classes.formControl}>
+            <InputLabel>Delivery Locations</InputLabel>
+            <Select
+              multiple
+              value={selectedCounties}
+              //@ts-ignore
+              onChange={(event) => selectCounty(event.target.value)}
+              input={<Input id="select-multiple-chip" />}
+              renderValue={() => (
+                <div className={classes.chips}>
+                  {selectedCounties.map((value) => (
+                    <Chip key={value} label={value} className={classes.chip} />
+                  ))}
+                </div>
+              )}
+            >
+              {counties?.map((county) => (
+                <MenuItem key={county} value={county}>
+                  {county}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
       </DialogContent>
       <DialogActions>

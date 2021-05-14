@@ -9,11 +9,13 @@ export default function ({
   businessEmail,
   orderFormToggled,
   toggleOrderForm,
+  deliveryLocations,
 }: {
   menu?: MenuItem[];
   businessEmail?: string;
   orderFormToggled?: boolean;
   toggleOrderForm?: (value: boolean) => void;
+  deliveryLocations?: string[];
 }) {
   function renderMenu() {
     return menu?.map((d) => {
@@ -44,6 +46,18 @@ export default function ({
         </>
       ) : (
         <>{renderMenu()}</>
+      )}
+
+      {deliveryLocations && (
+        <>
+          <Typography gutterBottom variant="h3" component="h2">
+            Delivers To:
+          </Typography>
+
+          <Typography gutterBottom variant="h6">
+            {deliveryLocations.join(", ")}
+          </Typography>
+        </>
       )}
 
       {!orderFormToggled && (

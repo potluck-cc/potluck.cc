@@ -88,10 +88,12 @@ export async function updateBusiness({
   id,
   description,
   menu,
+  deliveryLocations,
 }: {
   id: string;
   description: string;
   menu: MenuItem[];
+  deliveryLocations: string[];
 }) {
   const user = await API.graphql(
     graphqlOperation(updateBusinessDoc, {
@@ -99,6 +101,7 @@ export async function updateBusiness({
         id,
         description,
         menu,
+        deliveryLocations,
       },
     })
   );

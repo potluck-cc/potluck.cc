@@ -12,4 +12,5 @@ export type Business = {
   slug: string;
   menu: MenuItem[];
   email: string;
+  deliveryLocations: string[];
 };

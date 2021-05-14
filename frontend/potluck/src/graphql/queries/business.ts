@@ -20,6 +20,7 @@ export const getFeaturedBusinesses = gql`
         slug
         avatar
         email
+        deliveryLocations
         menu {
           title
           items
@@ -39,6 +40,7 @@ export const getBusinessBySlug = gql`
         slug
         avatar
         email
+        deliveryLocations
         menu {
           title
           items
