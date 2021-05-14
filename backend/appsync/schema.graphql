@@ -154,6 +154,7 @@ type Business @aws_cognito_user_pools @aws_iam @aws_api_key {
   description: String
   avatar: String
   menu: [MenuItem]
+  deliveryLocations: [String]
 }
 
 type BusinessConnection @aws_iam @aws_cognito_user_pools @aws_api_key {
@@ -181,6 +182,7 @@ input EditBusinessInput {
   description: String
   avatar: String
   menu: [MenuItemInput]
+  deliveryLocations: [String]
 }
 
 ####### boilerplate #######
