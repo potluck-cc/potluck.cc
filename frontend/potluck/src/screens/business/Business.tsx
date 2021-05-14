@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Profile, Tabs, Menu, Order, Questions } from "components";
+import { Profile, Tabs, Menu, Questions } from "components";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { Business } from "types";
 import Button from "@material-ui/core/Button";
@@ -50,6 +50,7 @@ export default function () {
     edibles?: string;
     concentrates?: string;
     description?: string;
+    deliveryLocations?: string[];
   }) {
     const businessCopy = { ...business };
 
@@ -57,7 +58,7 @@ export default function () {
       businessCopy.menu = [];
       //@ts-ignore
       Object.keys(items).map((key) => {
-        if (key !== "description") {
+        if (key !== "description" && key !== "deliveryLocations") {
           //@ts-ignore
           const menuStr = items[key];
 
@@ -74,6 +75,7 @@ export default function () {
         ...businessCopy,
         id: businessCopy.id ?? "",
         description: items.description ?? "",
+        deliveryLocations: items.deliveryLocations,
       };
 
       //@ts-ignore
@@ -95,6 +97,7 @@ export default function () {
             businessEmail={business?.email}
             orderFormToggled={orderFormToggled}
             toggleOrderForm={toggleOrderForm}
+            deliveryLocations={business?.deliveryLocations}
           />
         );
       case 1:
@@ -149,6 +152,7 @@ export default function () {
         menu={business?.menu}
         updateBusiness={updateBusiness}
         description={business?.description ?? ""}
+        deliveryLocations={business?.deliveryLocations ?? []}
       />
     </div>
   );

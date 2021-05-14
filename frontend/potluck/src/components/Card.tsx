@@ -27,7 +27,8 @@ export default function MediaCard({ business }: { business: Business }) {
   const classes = useStyles();
   let history = useHistory();
 
-  const { title, description, avatar, slug } = business;
+  const { title, description, avatar, slug, deliveryLocations } = business;
+  const locations = (deliveryLocations && deliveryLocations.join(", ")) ?? "";
 
   function handleSubscribe() {
     ctx?.setSubscribeDialogActive(true);
@@ -50,8 +51,14 @@ export default function MediaCard({ business }: { business: Business }) {
           <Typography gutterBottom variant="h5" component="h2">
             {title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            <div dangerouslySetInnerHTML={{ __html: description }} />
+          <Typography variant="body1" color="textSecondary" component="p">
+            {locations && `Delivers to: ${locations}`}
+
+            <div
+              dangerouslySetInnerHTML={{
+                __html: `${description.substring(0, 150)}...`,
+              }}
+            />
           </Typography>
         </CardContent>
       </CardActionArea>
