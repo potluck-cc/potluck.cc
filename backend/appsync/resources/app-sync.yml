@@ -16,6 +16,10 @@ dataSources:
     name: UserTable
     config:
       tableName: PotluckUserTable-${self:custom.env}
+  - type: AMAZON_DYNAMODB
+    name: ReviewTable
+    config:
+      tableName: PotluckReviewTable-${self:custom.env}
   - type: AWS_LAMBDA
     name: SendEmailLambda
     config:
@@ -100,6 +104,23 @@ mappingTemplates:
     field: subscribed
     request: false
     response: false
+
+  ### reviews
+  - dataSource: ReviewTable
+    type: Mutation
+    field: addReview
+    request: common/common-create.vtl
+    response: common/generic-response.vtl
+  - dataSource: ReviewTable
+    type: Query
+    field: getBusinessReviews
+    request: query/get-business-reviews/request.vtl
+    response: common/generic-response.vtl
+  - dataSource: ReviewTable
+    type: Mutation
+    field: deleteReview
+    request: mutation/delete-business-review/request.vtl
+    response: common/generic-response.vtl
 
   ## lambda
 

@@ -17,6 +17,7 @@
     "aws-amplify": "^3.3.21",
     "graphql-tag": "^2.11.0",
     "isomorphic-fetch": "^3.0.0",
+    "moment": "^2.29.1",
     "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-credit-cards": "^0.8.3",

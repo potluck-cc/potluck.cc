@@ -109,27 +109,32 @@ export default function ({
   }
 
   async function handleSubmit() {
-    if (isValid()) {
-      if (businessEmail) {
-        const formValues: Order = {
-          ...state,
-          gifts: selectedGift,
-          preferredStrain: selectedStrain,
-          businessEmail: businessEmail,
-        };
+    if (ctx?.user || ctx?.dynamoUser) {
+      if (isValid()) {
+        if (businessEmail) {
+          const formValues: Order = {
+            ...state,
+            gifts: selectedGift,
+            preferredStrain: selectedStrain,
+            businessEmail: businessEmail,
+          };
 
-        const res = await sendEmail(formValues);
+          const res = await sendEmail(formValues);
 
-        if (typeof res === "boolean" && res) {
-          setState(defaultState);
+          if (typeof res === "boolean" && res) {
+            setState(defaultState);
 
-          setSubmissionSent(true);
-        } else {
-          setError("Something went wrong. Please try again.");
+            setSubmissionSent(true);
+          } else {
+            setError("Something went wrong. Please try again.");
+          }
         }
+      } else {
+        setError("All fields need to be filled out.");
       }
     } else {
-      setError("All fields need to be filled out.");
+      ctx?.setAuthDialogActive(true);
+      setError("You need to be logged in to make an order.");
     }
   }
 

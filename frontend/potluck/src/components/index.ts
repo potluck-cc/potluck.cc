@@ -6,3 +6,5 @@ export { default as Order } from "./Order";
 export { Profile } from "./Profile";
 export { default as Questions } from "./Questions";
 export { default as GenericDialog } from "./GenericDialog";
+export { default as Comment } from "./Comment";
+export { default as AddComment } from "./AddComment";

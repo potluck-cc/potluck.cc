@@ -8,11 +8,13 @@ import "./business.scss";
 import { fetchBusinessWithSlug } from "graphql/queries";
 import { updateBusiness as updateBusinessAPI } from "graphql/mutations";
 import appcontext from "appcontext";
+import Reviews from "./Reviews";
 
 export default function () {
   const [tabState, updateTabState] = useState(0);
   const [business, setBusiness] = useState<undefined | Business>(undefined);
   const [profileDialogActive, setProfileDialog] = useState(false);
+  const [orderFormToggled, toggleOrderForm] = useState(false);
   const ctx = useContext(appcontext);
   const params = useParams();
   const location = useLocation();
@@ -88,12 +90,17 @@ export default function () {
     switch (tabState) {
       case 0:
         return (
-          <Menu data={business?.menu} description={business?.description} />
+          <Menu
+            menu={business?.menu}
+            businessEmail={business?.email}
+            orderFormToggled={orderFormToggled}
+            toggleOrderForm={toggleOrderForm}
+          />
         );
       case 1:
-        return <Order menu={business?.menu} businessEmail={business?.email} />;
+        return <Reviews businessId={business?.id} />;
       case 2:
-        return <Questions />;
+        return <Questions description={business?.description} />;
       default:
         return null;
     }
@@ -119,13 +126,20 @@ export default function () {
           color="primary"
           variant="contained"
           style={{ marginBottom: 8 }}
-          onClick={() => updateTabState(tabState === 0 ? 1 : 0)}
+          onClick={() => {
+            updateTabState(0);
+            toggleOrderForm(!orderFormToggled);
+          }}
         >
-          {tabState === 0 ? "Order" : "Menu"}
+          {!orderFormToggled ? "Order" : "Menu"}
         </Button>
       )}
 
-      {/* <Tabs onSetValue={updateTabState} /> */}
+      <Tabs
+        onSetValue={updateTabState}
+        activeTab={tabState === 0 ? 0 : undefined}
+        orderFormToggled={orderFormToggled}
+      />
 
       {renderTab()}
 
