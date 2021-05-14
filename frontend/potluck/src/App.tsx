@@ -135,6 +135,7 @@ function App() {
         user,
         dynamoUser,
         setdynamoUser,
+        setUser,
       }}
     >
       <ThemeProvider theme={theme}>

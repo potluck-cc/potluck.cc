@@ -32,6 +32,7 @@ export default function () {
     if (ctx?.authenticated) {
       Auth.signOut();
       ctx?.isAuthenticated(false);
+      ctx?.setUser(null);
     } else {
       ctx?.setAuthDialogActive(true);
     }

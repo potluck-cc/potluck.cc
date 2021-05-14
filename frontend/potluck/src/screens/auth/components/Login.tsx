@@ -93,6 +93,7 @@ export default function () {
                 } else {
                   appctx?.isAuthenticated(true);
                   appctx?.setAuthDialogActive(false);
+                  appctx?.setUser(res);
                 }
               },
               onFail: (err) => {

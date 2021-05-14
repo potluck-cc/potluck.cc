@@ -13,6 +13,7 @@ export interface AppContextInterface {
   user: null | any;
   dynamoUser: null | User;
   setdynamoUser: Dispatch<React.SetStateAction<User | null>>;
+  setUser: Dispatch<React.SetStateAction<any | null>>;
 }
 
 export default createContext<AppContextInterface | null>(null);

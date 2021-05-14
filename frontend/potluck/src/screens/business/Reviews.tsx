@@ -66,7 +66,7 @@ export default function Reviews({ businessId }: { businessId?: string }) {
         maxWidth: 420,
       }}
     >
-      <AddComment onShare={addReview} disabled={!user} />
+      <AddComment onShare={addReview} disabled={!ctx?.user} />
 
       {renderReviews()}
     </div>

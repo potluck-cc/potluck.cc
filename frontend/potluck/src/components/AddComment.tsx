@@ -68,8 +68,6 @@ export default function AddComment({
       username,
     });
 
-    console.log(updatedUser);
-
     ctx?.setdynamoUser(updatedUser as User);
 
     isDialogOpen(false);
